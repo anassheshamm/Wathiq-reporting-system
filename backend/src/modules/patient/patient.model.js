@@ -23,7 +23,6 @@ const patientSchema = new mongoose.Schema(
     nationalId: {
       type: String,
       required: true,
-      unique: true,
     },
 
     gender: {
@@ -96,6 +95,15 @@ const patientSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
+  }
+);
+patientSchema.index(
+  { nationalId: 1 },
+  {
+    unique: true,
+    partialFilterExpression: {
+      isActive: true,
+    },
   }
 );
 

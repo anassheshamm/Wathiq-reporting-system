@@ -44,6 +44,13 @@ router.patch(
   patientController.update
 );
 
+router.delete(
+  "/:id",
+  protect,
+  authorize("doctor"),
+  patientController.delete
+);
+
 router.get(
   "/:id",
   protect,

@@ -8,6 +8,7 @@ class PatientService {
   async create(data) {
     const existingPatient = await Patient.findOne({
       nationalId: data.nationalId,
+      isActive: true,
     });
 
     if (existingPatient) {
@@ -20,17 +21,19 @@ class PatientService {
   async findById(id) {
     return await Patient.findById(id).populate(
       "doctor",
-      "firstName middleName lastName email role"
+      "firstName middleName lastName email role",
     );
   }
 
   async getAll(user, search) {
-    const query = {};
+    const query = {
+      isActive: true,
+    };
 
     // Doctor can only see his patients
     if (user.role === "doctor") {
       query.doctor = user._id;
-    } 
+    }
     // Team Leader sees patients of doctors assigned to them
     else if (user.role === "teamLeader") {
       const myDoctors = await User.find({ teamLeader: user._id }).select("_id");
@@ -82,12 +85,13 @@ class PatientService {
       patient = await Patient.findOne({
         _id: patientId,
         doctor: user._id,
+        isActive: true,
       }).populate("doctor", "firstName middleName lastName email role");
     } else {
-      patient = await Patient.findById(patientId).populate(
-        "doctor",
-        "firstName middleName lastName email role"
-      );
+      patient = await Patient.findOne({
+        _id: patientId,
+        isActive: true,
+      }).populate("doctor", "firstName middleName lastName email role");
     }
 
     if (!patient) {
@@ -126,41 +130,53 @@ class PatientService {
   }
 
   async update(patientId, data, user) {
+    const patient = await Patient.findOne({
+      _id: patientId,
+      doctor: user._id,
+    });
+
+    if (!patient) {
+      throw new AppError("Patient not found.", 404);
+    }
+
+    // منع تكرار الرقم القومي
+    if (data.nationalId && data.nationalId !== patient.nationalId) {
+      const existingPatient = await Patient.findOne({
+        nationalId: data.nationalId,
+        _id: { $ne: patientId },
+      });
+
+      if (existingPatient) {
+        throw new AppError("National ID already exists.", 409);
+      }
+    }
+
+    Object.assign(patient, data);
+
+    await patient.save();
+
+    return patient.populate(
+      "doctor",
+      "firstName middleName lastName email role",
+    );
+  }
+
+  async delete(patientId, user) {
   const patient = await Patient.findOne({
     _id: patientId,
     doctor: user._id,
+    isActive: true,
   });
 
   if (!patient) {
     throw new AppError("Patient not found.", 404);
   }
 
-  // منع تكرار الرقم القومي
-  if (
-    data.nationalId &&
-    data.nationalId !== patient.nationalId
-  ) {
-    const existingPatient = await Patient.findOne({
-      nationalId: data.nationalId,
-      _id: { $ne: patientId },
-    });
-
-    if (existingPatient) {
-      throw new AppError(
-        "National ID already exists.",
-        409
-      );
-    }
-  }
-
-  Object.assign(patient, data);
+  patient.isActive = false;
 
   await patient.save();
 
-  return patient.populate(
-    "doctor",
-    "firstName middleName lastName email role"
-  );
+  return patient;
 }
 
   async getDashboardStats(doctorId) {
@@ -181,6 +197,7 @@ class PatientService {
     ] = await Promise.all([
       Patient.countDocuments({
         doctor: doctorId,
+        isActive: true,
       }),
       PreReport.countDocuments({
         doctor: doctorId,

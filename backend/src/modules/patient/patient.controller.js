@@ -84,6 +84,22 @@ async update(req, res, next) {
   }
 }
 
+async delete(req, res, next) {
+  try {
+    await patientService.delete(
+      req.params.id,
+      req.user
+    );
+
+    return res.status(200).json({
+      success: true,
+      message: "Patient deleted successfully.",
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
 async getDashboardStats(req, res, next) {
   try {
     const stats = await patientService.getDashboardStats(
