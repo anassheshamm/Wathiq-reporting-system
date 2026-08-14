@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Mail } from "lucide-react";
 
 import logo from "/logo.png";
+import logo2 from "/logo2.png";
 
 const ForgotPasswordPage = () => {
   const [email, setEmail] = useState("");
@@ -34,13 +35,21 @@ const ForgotPasswordPage = () => {
       className="flex min-h-screen items-center justify-center bg-white px-6"
     >
       <div className="w-full max-w-md">
-
+<div className="mb-10 flex justify-center">
         <div className="mb-10 flex justify-center">
           <img
             src={logo}
             alt="Recovery"
             className="w-40"
           />
+        </div>
+         <div className="mb-10 flex justify-center">
+          <img
+            src={logo2}
+            alt="Recovery"
+            className="w-40"
+          />
+        </div>
         </div>
 
         <h1 className="text-center text-5xl font-bold text-[#111827]">
@@ -52,7 +61,7 @@ const ForgotPasswordPage = () => {
         </p>
 
         {sent ? (
-          <div className="mt-10 rounded-xl bg-green-50 p-5 text-center text-[#247C5A]">
+          <div className="mt-10 rounded-xl bg-green-50 p-5 text-center text-[#4FA0B7]">
             تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني.
           </div>
         ) : (
@@ -87,9 +96,9 @@ const ForgotPasswordPage = () => {
                     pl-12
                     text-right
                     outline-none
-                    focus:border-[#35C759]
+                    focus:border-[#4FA0B7]
                     focus:ring-2
-                    focus:ring-[#35C759]/10
+                    focus:ring-[#4FA0B7]/10
                   "
                 />
 
@@ -103,12 +112,12 @@ const ForgotPasswordPage = () => {
                 h-14
                 w-full
                 rounded-xl
-                bg-[#35C759]
+                bg-[#4FA0B7]
                 text-lg
                 font-semibold
                 text-white
                 transition
-                hover:bg-[#2FB350]
+                hover:bg-[#4FA0B7]/60
                 disabled:bg-gray-300
               "
             >
@@ -122,7 +131,7 @@ const ForgotPasswordPage = () => {
         <div className="mt-8 text-center">
           <Link
             to="/login"
-            className="font-medium text-[#247C5A] hover:underline"
+            className="font-medium text-[#4FA0B7] hover:underline"
           >
             العودة إلى تسجيل الدخول
           </Link>

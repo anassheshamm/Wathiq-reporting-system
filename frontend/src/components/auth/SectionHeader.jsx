@@ -17,7 +17,7 @@ export default function SectionHeader({
                 ${align === "end" ? "justify-end" : ""}
             `}
         >
-            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#EAF8EE] text-[#38C85A]">
+            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#4FA0B7]/30 text-[#4FA0B7]">
                 {icon}
             </div>
 

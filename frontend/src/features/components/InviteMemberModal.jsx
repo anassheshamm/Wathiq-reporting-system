@@ -82,7 +82,7 @@ const InviteMemberModal = ({ open, onClose, onSuccess }) => {
         {generatedLink ? (
           /* Success State */
           <div className="space-y-6 p-6 text-center">
-            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-100 text-[#35C759]">
+            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-blue-100 text-[#A9D3DF]">
               <MailCheck size={32} />
             </div>
             
@@ -91,7 +91,7 @@ const InviteMemberModal = ({ open, onClose, onSuccess }) => {
                 تم إرسال البريد الإلكتروني!
               </h3>
               <p className="mb-6 text-sm font-medium text-gray-500 leading-relaxed">
-                تم إرسال رابط التسجيل إلى <span className="text-[#35C759]" dir="ltr">{email}</span>.
+                تم إرسال رابط التسجيل إلى <span className="text-[#A9D3DF]" dir="ltr">{email}</span>.
                 يمكنك أيضاً نسخ الرابط أدناه وإرساله يدوياً في حال لم يصل البريد.
               </p>
               
@@ -106,7 +106,7 @@ const InviteMemberModal = ({ open, onClose, onSuccess }) => {
                 <button
                   onClick={handleCopyLink}
                   className={`flex shrink-0 items-center gap-2 rounded-lg px-4 py-2 text-sm font-bold text-white transition ${
-                    copied ? "bg-green-500" : "bg-[#35C759] hover:bg-[#2FB350]"
+                    copied ? "bg-[#A9D3DF] hover:bg-[#A9D3DF]/80" : "bg-[#4FA0B7] hover:bg-[#A9D3DF]"
                   }`}
                 >
                   {copied ? "تم النسخ!" : <Copy size={16} />}
@@ -141,7 +141,7 @@ const InviteMemberModal = ({ open, onClose, onSuccess }) => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 disabled={submitting}
-                className="h-12 w-full rounded-xl border border-gray-300 px-4 text-right outline-none transition focus:border-[#35C759] focus:ring-2 focus:ring-[#35C759]/20 disabled:bg-gray-100"
+                className="h-12 w-full rounded-xl border border-gray-300 px-4 text-right outline-none transition focus:border-[#A9D3DF] focus:ring-2 focus:ring-[#35C759]/20 disabled:bg-gray-100"
               />
             </div>
 
@@ -154,7 +154,7 @@ const InviteMemberModal = ({ open, onClose, onSuccess }) => {
                 value={role}
                 onChange={(e) => setRole(e.target.value)}
                 disabled={submitting}
-                className="h-12 w-full rounded-xl border border-gray-300 bg-white px-4 text-right outline-none transition focus:border-[#35C759] focus:ring-2 focus:ring-[#35C759]/20 disabled:bg-gray-100"
+                className="h-12 w-full rounded-xl border border-gray-300 bg-white px-4 text-right outline-none transition focus:border-[#A9D3DF] focus:ring-2 focus:ring-[#35C759]/20 disabled:bg-gray-100"
               >
                 <option value="">اختر نوع الحساب</option>
                 <option value="doctor">مرشد تعافي / معالج</option>
@@ -176,7 +176,7 @@ const InviteMemberModal = ({ open, onClose, onSuccess }) => {
               <button
                 type="submit"
                 disabled={!email || !role || submitting}
-                className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-[#35C759] py-3 font-bold text-white shadow-sm transition hover:bg-[#2FB350] disabled:cursor-not-allowed disabled:opacity-70"
+                className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-[#4FA0B7] py-3 font-bold text-white shadow-sm transition hover:bg-[#A9D3DF] disabled:cursor-not-allowed disabled:opacity-70"
               >
                 {submitting ? (
                   <>

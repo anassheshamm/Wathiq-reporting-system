@@ -210,10 +210,10 @@ const CreatePatientPage = () => {
 
             <div className="mb-8 flex items-center gap-3">
 
-              <div className="rounded-xl bg-[#EAF8F1] p-3">
+              <div className="rounded-xl bg-[#4FA0B7]/30 p-3">
                 <User
                   size={24}
-                  className="text-[#247C5A]"
+                  className="text-[#4FA0B7]"
                 />
               </div>
 
@@ -248,7 +248,7 @@ const CreatePatientPage = () => {
                     px-4
                     text-right
                     outline-none
-                    focus:border-[#35C759]
+                    focus:border-[#4FA0B7]
                   "
                 />
 
@@ -277,7 +277,7 @@ const CreatePatientPage = () => {
                     px-4
                     text-right
                     outline-none
-                    focus:border-[#35C759]
+                    focus:border-[#4FA0B7]
                   "
                 />
 
@@ -306,7 +306,7 @@ const CreatePatientPage = () => {
                     px-4
                     text-right
                     outline-none
-                    focus:border-[#35C759]
+                    focus:border-[#4FA0B7]
                   "
                 />
 
@@ -335,7 +335,7 @@ const CreatePatientPage = () => {
                     px-4
                     text-right
                     outline-none
-                    focus:border-[#35C759]
+                    focus:border-[#4FA0B7]
                   "
                 />
 
@@ -362,7 +362,7 @@ const CreatePatientPage = () => {
                     bg-white
                     px-4
                     outline-none
-                    focus:border-[#35C759]
+                    focus:border-[#4FA0B7]
                   "
                 >
                   <option value="">
@@ -411,7 +411,7 @@ const CreatePatientPage = () => {
                       pr-4
                       pl-12
                       outline-none
-                      focus:border-[#35C759]
+                      focus:border-[#4FA0B7]
                     "
                   />
 
@@ -448,7 +448,7 @@ const CreatePatientPage = () => {
                       pr-4
                       pl-12
                       outline-none
-                      focus:border-[#35C759]
+                      focus:border-[#4FA0B7]
                     "
                   />
 
@@ -478,7 +478,7 @@ const CreatePatientPage = () => {
                     border-gray-300
                     px-4
                     outline-none
-                    focus:border-[#35C759]
+                    focus:border-[#4FA0B7]
                   "
                 />
 
@@ -505,7 +505,7 @@ const CreatePatientPage = () => {
                     bg-white
                     px-4
                     outline-none
-                    focus:border-[#35C759]
+                    focus:border-[#4FA0B7]
                   "
                 >
                   <option value="">
@@ -543,10 +543,10 @@ const CreatePatientPage = () => {
 
             <div className="mb-8 flex items-center gap-3">
 
-              <div className="rounded-xl bg-[#EAF8F1] p-3">
+              <div className="rounded-xl bg-[#4FA0B7]/30 p-3">
                 <Phone
                   size={24}
-                  className="text-[#247C5A]"
+                  className="text-[#4FA0B7]"
                 />
               </div>
 
@@ -581,7 +581,7 @@ const CreatePatientPage = () => {
                     px-4
                     text-right
                     outline-none
-                    focus:border-[#35C759]
+                    focus:border-[#4FA0B7]
                   "
                 />
 
@@ -610,7 +610,7 @@ const CreatePatientPage = () => {
                     px-4
                     text-right
                     outline-none
-                    focus:border-[#35C759]
+                    focus:border-[#4FA0B7]
                   "
                 />
 
@@ -639,7 +639,7 @@ const CreatePatientPage = () => {
                     px-4
                     text-right
                     outline-none
-                    focus:border-[#35C759]
+                    focus:border-[#4FA0B7]
                   "
                 />
 
@@ -658,7 +658,7 @@ const CreatePatientPage = () => {
                   name="address"
                   value={form.address}
                   onChange={handleChange}
-                  placeholder="القاهرة - مصر"
+                  placeholder="المدينه - السعوديه"
                   className="
                     h-14
                     w-full
@@ -668,7 +668,7 @@ const CreatePatientPage = () => {
                     px-4
                     text-right
                     outline-none
-                    focus:border-[#35C759]
+                    focus:border-[#4FA0B7]
                   "
                 />
 
@@ -696,7 +696,7 @@ const CreatePatientPage = () => {
                     px-4
                     text-right
                     outline-none
-                    focus:border-[#35C759]
+                    focus:border-[#4FA0B7]
                   "
                 >
                   <option value="">
@@ -776,7 +776,7 @@ const CreatePatientPage = () => {
                       pl-12
                       text-right
                       outline-none
-                      focus:border-[#35C759]
+                      focus:border-[#4FA0B7]
                     "
                   />
 
@@ -799,14 +799,14 @@ const CreatePatientPage = () => {
     disabled={loading}
     className="
       rounded-xl
-      bg-[#35C759]
+      bg-[#4FA0B7]
       px-8
       py-4
       text-lg
       font-semibold
       text-white
       transition
-      hover:bg-[#2FB350]
+      hover:bg-[#4FA0B7]/60
       disabled:cursor-not-allowed
       disabled:opacity-60
     "
@@ -822,14 +822,14 @@ const CreatePatientPage = () => {
       className="
         rounded-xl
         border
-        border-[#35C759]
+        border-[#4FA0B7]
         px-8
         py-4
         text-lg
         font-semibold
-        text-[#247C5A]
+        text-[#4FA0B7]
         transition
-        hover:bg-[#EDF8F2]
+        hover:bg-[#4FA0B7]/10
         disabled:cursor-not-allowed
         disabled:opacity-60
       "

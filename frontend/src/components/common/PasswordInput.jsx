@@ -60,9 +60,9 @@ const PasswordInput = forwardRef(
               outline-none
               transition-all
               duration-200
-              focus:border-[#35C759]
+              focus:border-[#4FA0B7]
               focus:ring-4
-              focus:ring-[#35C759]/10
+              focus:ring-[#4FA0B7]/10
               ${className}
             `}
             {...props}

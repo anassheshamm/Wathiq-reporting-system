@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { ArrowRight, Loader2, Printer, CheckCircle, XCircle } from "lucide-react";
 import api from "../../services/api";
 import reportService from "../../services/report.service";
 import { useAuth } from "../../context/AuthContext";
+import Swal from "sweetalert2";
 
 const ReportPreviewPage = () => {
   const { reportId } = useParams();
@@ -32,29 +33,88 @@ const ReportPreviewPage = () => {
   }, [reportId]);
 
   const handleApprove = async () => {
+    const result = await Swal.fire({
+      title: "تأكيد الاعتماد",
+      text: "هل أنت متأكد من رغبتك في اعتماد هذا التقرير القبلي؟",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#35C759",
+      cancelButtonColor: "#888",
+      confirmButtonText: "نعم، اعتمده",
+      cancelButtonText: "إلغاء",
+      customClass: { popup: "font-['Cairo']" },
+    });
+
+    if (!result.isConfirmed) return;
+
     try {
       setProcessing(true);
       await reportService.approvePreReport(reportId);
-      alert("تم اعتماد التقرير القبلي بنجاح");
+      
+      await Swal.fire({
+        title: "تم بنجاح",
+        text: "تم اعتماد التقرير القبلي بنجاح",
+        icon: "success",
+        confirmButtonColor: "#35C759",
+        customClass: { popup: "font-['Cairo']" },
+      });
+
       navigate("/team-leader");
     } catch (err) {
-      alert(err.response?.data?.message || "حدث خطأ أثناء الاعتماد.");
+      Swal.fire({
+        title: "خطأ",
+        text: err.response?.data?.message || "حدث خطأ أثناء الاعتماد.",
+        icon: "error",
+        confirmButtonColor: "#35C759",
+        customClass: { popup: "font-['Cairo']" },
+      });
     } finally {
       setProcessing(false);
     }
   };
 
   const handleReject = async () => {
-    const reason = window.prompt("يرجى إدخال سبب الرفض:");
-    if (!reason) return;
+    const { value: reason, isConfirmed } = await Swal.fire({
+      title: "سبب الرفض",
+      input: "textarea",
+      inputLabel: "يرجى إدخال سبب الرفض:",
+      inputPlaceholder: "اكتب السبب هنا...",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#888",
+      confirmButtonText: "تأكيد الرفض",
+      cancelButtonText: "إلغاء",
+      customClass: { popup: "font-['Cairo']" },
+      inputValidator: (value) => {
+        if (!value || value.trim() === "") {
+          return "يجب إدخال سبب الرفض!";
+        }
+      },
+    });
+
+    if (!isConfirmed || !reason) return;
 
     try {
       setProcessing(true);
       await reportService.rejectPreReport(reportId, reason);
-      alert("تم رفض التقرير القبلي");
+
+      await Swal.fire({
+        title: "تم الرفض",
+        text: "تم رفض التقرير القبلي بنجاح",
+        icon: "success",
+        confirmButtonColor: "#35C759",
+        customClass: { popup: "font-['Cairo']" },
+      });
+
       navigate("/team-leader");
     } catch (err) {
-      alert(err.response?.data?.message || "حدث خطأ أثناء الرفض.");
+      Swal.fire({
+        title: "خطأ",
+        text: err.response?.data?.message || "حدث خطأ أثناء الرفض.",
+        icon: "error",
+        confirmButtonColor: "#35C759",
+        customClass: { popup: "font-['Cairo']" },
+      });
     } finally {
       setProcessing(false);
     }
@@ -101,7 +161,7 @@ const ReportPreviewPage = () => {
             <ArrowRight size={20} />
             رجوع
           </button>
-          <button onClick={() => window.print()} className="flex items-center gap-2 rounded-xl bg-[#34C759] px-5 py-3 font-semibold text-white shadow-sm transition hover:bg-[#2FB350]">
+          <button onClick={() => window.print()} className="flex items-center gap-2 rounded-xl bg-[#4FA0B7] px-5 py-3 font-semibold text-white shadow-sm transition hover:bg-[#4FA0B7]/90">
             <Printer size={20} />
             طباعة التقرير
           </button>
@@ -113,13 +173,13 @@ const ReportPreviewPage = () => {
             <img src="/logo.png" alt="Logo" className="h-16 object-contain" />
             <img src="/logo2.png" alt="Logo" className="h-16 object-contain" />
           </div>
-          <div className="my-6 h-[2px] w-full bg-gradient-to-r from-transparent via-[#34C759] to-transparent print:bg-[#34C759]" />
+          <div className="my-6 h-[2px] w-full bg-gradient-to-r from-transparent via-[#4FA0B7] to-transparent print:bg-[#4FA0B7]" />
           <div className="flex flex-col justify-between gap-6 md:flex-row">
             <div>
-              <h1 className="text-3xl font-bold text-[#1E7A5A]">التقرير القبلي للمستفيد</h1>
+              <h1 className="text-3xl font-bold text-[#31778b]">التقرير القبلي للمستفيد</h1>
               <p className="mt-2 text-gray-500">برنامج التأهيل والتعافي</p>
             </div>
-            <div className="rounded-full bg-[#EAF5F0] border border-[#1E7A5A]/10 px-8 py-3 font-bold text-[#1E7A5A]">
+            <div className="rounded-full bg-[#4FA0B7]/20 border border-[#4FA0B7]/10 px-8 py-3 font-bold text-[#4FA0B7]">
               قبلي (نسخة معاينة)
             </div>
           </div>
@@ -142,26 +202,26 @@ const ReportPreviewPage = () => {
         {/* ================= 1. PATIENT INFO ================= */}
         <section className="mt-8">
           <div className="mb-6 flex items-center gap-4">
-            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#EAF5F0] font-bold text-[#1E7A5A]">1</span>
-            <h2 className="text-2xl font-bold text-[#1E7A5A]">البيانات الأساسية</h2>
+            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#31778b]/10 font-bold text-[#4FA0B7]">1</span>
+            <h2 className="text-2xl font-bold text-[#31778b]">البيانات الأساسية</h2>
           </div>
           <div className="rounded-[22px] border border-[#E7F0EB] bg-white p-8 shadow-[0_10px_35px_rgba(30,122,90,0.08)]">
             <div className="grid grid-cols-1 gap-7 md:grid-cols-2">
               <div className="flex flex-col gap-3">
-                <span className="font-semibold text-[#1E7A5A]">اسم المستفيد</span>
-                <div className="w-full rounded-xl border border-[#E7F0EB] bg-[#FAFDFC] px-5 py-4 font-medium">{patientFullName}</div>
+                <span className="font-semibold text-[#31778b]">اسم المستفيد</span>
+                <div className="w-full rounded-xl border border-[#E7F0EB] bg-[#31778b]/5 px-5 py-4 font-medium">{patientFullName}</div>
               </div>
               <div className="flex flex-col gap-3">
-                <span className="font-semibold text-[#1E7A5A]">رقم الهوية</span>
-                <div className="w-full rounded-xl border border-[#E7F0EB] bg-[#FAFDFC] px-5 py-4 font-medium">{report.patient?.nationalId || "-"}</div>
+                <span className="font-semibold text-[#31778b]">رقم الهوية</span>
+                <div className="w-full rounded-xl border border-[#E7F0EB] bg-[#31778b]/5 px-5 py-4 font-medium">{report.patient?.nationalId || "-"}</div>
               </div>
               <div className="flex flex-col gap-3">
-                <span className="font-semibold text-[#1E7A5A]">اسم البرنامج</span>
-                <div className="w-full rounded-xl border border-[#E7F0EB] bg-[#FAFDFC] px-5 py-4 font-medium">{report.reportInformation?.programName || "-"}</div>
+                <span className="font-semibold text-[#31778b]">اسم البرنامج</span>
+                <div className="w-full rounded-xl border border-[#E7F0EB] bg-[#31778b]/5 px-5 py-4 font-medium">{report.reportInformation?.programName || "-"}</div>
               </div>
               <div className="flex flex-col gap-3">
-                <span className="font-semibold text-[#1E7A5A]">تاريخ بداية البرنامج</span>
-                <div className="w-full rounded-xl border border-[#E7F0EB] bg-[#FAFDFC] px-5 py-4 font-medium">
+                <span className="font-semibold text-[#31778b]">تاريخ بداية البرنامج</span>
+                <div className="w-full rounded-xl border border-[#E7F0EB] bg-[#31778b]/5 px-5 py-4 font-medium">
                   {report.reportInformation?.startDate ? new Date(report.reportInformation.startDate).toLocaleDateString("en-CA") : "-"}
                 </div>
               </div>
@@ -172,34 +232,34 @@ const ReportPreviewPage = () => {
         {/* ================= 2. GENERAL CASE INFORMATION ================= */}
         <section className="mt-12">
           <div className="mb-6 flex items-center gap-4">
-            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#EAF5F0] font-bold text-[#1E7A5A]">2</span>
-            <h2 className="text-2xl font-bold text-[#1E7A5A]">معلومات عامة عن الحالة</h2>
+            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#31778b]/10 font-bold text-[#4FA0B7]">2</span>
+            <h2 className="text-2xl font-bold text-[#31778b]">معلومات عامة عن الحالة</h2>
           </div>
           <div className="rounded-[22px] border border-[#E7F0EB] bg-white p-8 shadow-[0_10px_35px_rgba(30,122,90,0.08)]">
             <div className="grid grid-cols-1 gap-7 md:grid-cols-2">
               <div className="flex flex-col gap-3">
-                <span className="font-semibold text-[#1E7A5A]">شدة الإدمان</span>
-                <div className="w-full rounded-xl border border-[#E7F0EB] bg-[#FAFDFC] px-5 py-4 font-medium">{report.generalCaseInformation?.addictionSeverity || "-"}</div>
+                <span className="font-semibold text-[#31778b]">شدة الإدمان</span>
+                <div className="w-full rounded-xl border border-[#E7F0EB] bg-[#31778b]/5 px-5 py-4 font-medium">{report.generalCaseInformation?.addictionSeverity || "-"}</div>
               </div>
               <div className="flex flex-col gap-3">
-                <span className="font-semibold text-[#1E7A5A]">نوع التعاطي السابق</span>
-                <div className="w-full rounded-xl border border-[#E7F0EB] bg-[#FAFDFC] px-5 py-4 font-medium">{report.generalCaseInformation?.previousSubstanceType || "-"}</div>
+                <span className="font-semibold text-[#31778b]">نوع التعاطي السابق</span>
+                <div className="w-full rounded-xl border border-[#E7F0EB] bg-[#31778b]/5 px-5 py-4 font-medium">{report.generalCaseInformation?.previousSubstanceType || "-"}</div>
               </div>
               <div className="flex flex-col gap-3">
-                <span className="font-semibold text-[#1E7A5A]">مدة التعاطي</span>
-                <div className="w-full rounded-xl border border-[#E7F0EB] bg-[#FAFDFC] px-5 py-4 font-medium">{report.generalCaseInformation?.addictionDuration || "-"}</div>
+                <span className="font-semibold text-[#31778b]">مدة التعاطي</span>
+                <div className="w-full rounded-xl border border-[#E7F0EB] bg-[#31778b]/5 px-5 py-4 font-medium">{report.generalCaseInformation?.addictionDuration || "-"}</div>
               </div>
               <div className="flex flex-col gap-3">
-                <span className="font-semibold text-[#1E7A5A]">عدد محاولات التعافي السابقة</span>
-                <div className="w-full rounded-xl border border-[#E7F0EB] bg-[#FAFDFC] px-5 py-4 font-medium">{report.generalCaseInformation?.previousRecoveryAttempts ?? "-"}</div>
+                <span className="font-semibold text-[#31778b]">عدد محاولات التعافي السابقة</span>
+                <div className="w-full rounded-xl border border-[#E7F0EB] bg-[#31778b]/5 px-5 py-4 font-medium">{report.generalCaseInformation?.previousRecoveryAttempts ?? "-"}</div>
               </div>
             </div>
 
             <div className="mt-8 border-t border-[#E7F0EB] pt-8">
-              <span className="mb-4 block font-semibold text-[#1E7A5A]">الدافع للالتحاق بالبرنامج</span>
+              <span className="mb-4 block font-semibold text-[#31778b]">الدافع للالتحاق بالبرنامج</span>
               <div className="flex flex-wrap gap-4">
                 {report.generalCaseInformation?.motivations?.map((m, idx) => (
-                  <div key={idx} className="rounded-xl bg-[#F8FCFA] border border-[#34C759] px-6 py-3 font-bold text-[#1E7A5A]">
+                  <div key={idx} className="rounded-xl bg-[#f8f9fc] border border-[#31778b] px-6 py-3 font-bold text-[#4FA0B7]">
                     {translateMotivation(m)}
                   </div>
                 ))}
@@ -214,25 +274,25 @@ const ReportPreviewPage = () => {
         {/* ================= 3. INITIAL EVALUATIONS ================= */}
         <section className="mt-12">
           <div className="mb-6 flex items-center gap-4">
-            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#EAF5F0] font-bold text-[#1E7A5A]">3</span>
-            <h2 className="text-2xl font-bold text-[#1E7A5A]">التقييمات الأولية</h2>
+            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#31778b]/10 font-bold text-[#31778b]">3</span>
+            <h2 className="text-2xl font-bold text-[#31778b]">التقييمات الأولية</h2>
           </div>
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
             <div className="rounded-[20px] border border-[#E7F0EB] bg-white p-7 shadow-[0_8px_24px_rgba(30,122,90,0.05)]">
-              <h3 className="mb-6 border-b border-[#E7F0EB] pb-4 text-center text-lg font-bold text-[#1E7A5A]">التقييم النفسي الأولي</h3>
-              <div className="rounded-xl border border-[#34C759] bg-[#F5FCF7] px-4 py-4 text-center font-bold text-[#1E7A5A]">
+              <h3 className="mb-6 border-b border-[#E7F0EB] pb-4 text-center text-lg font-bold text-[#31778b]">التقييم النفسي الأولي</h3>
+              <div className="rounded-xl border border-[#31778b] bg-[#31778b]/5 px-4 py-4 text-center font-bold text-[#343e41]">
                 {translatePsychological(report.initialEvaluations?.psychologicalStatus)}
               </div>
             </div>
             <div className="rounded-[20px] border border-[#E7F0EB] bg-white p-7 shadow-[0_8px_24px_rgba(30,122,90,0.05)]">
-              <h3 className="mb-6 border-b border-[#E7F0EB] pb-4 text-center text-lg font-bold text-[#1E7A5A]">التقييم السلوكي</h3>
-              <div className="rounded-xl border border-[#34C759] bg-[#F5FCF7] px-4 py-4 text-center font-bold text-[#1E7A5A]">
+              <h3 className="mb-6 border-b border-[#E7F0EB] pb-4 text-center text-lg font-bold text-[#31778b  ]">التقييم السلوكي</h3>
+              <div className="rounded-xl border border-[#31778b] bg-[#31778b]/5 px-4 py-4 text-center font-bold text-[#343e41]">
                 {translateBehavioral(report.initialEvaluations?.behavioralStatus)}
               </div>
             </div>
             <div className="rounded-[20px] border border-[#E7F0EB] bg-white p-7 shadow-[0_8px_24px_rgba(30,122,90,0.05)]">
-              <h3 className="mb-6 border-b border-[#E7F0EB] pb-4 text-center text-lg font-bold text-[#1E7A5A]">القدرة على الالتزام</h3>
-              <div className="rounded-xl border border-[#34C759] bg-[#F5FCF7] px-4 py-4 text-center font-bold text-[#1E7A5A]">
+              <h3 className="mb-6 border-b border-[#E7F0EB] pb-4 text-center text-lg font-bold text-[#31778b]">القدرة على الالتزام</h3>
+              <div className="rounded-xl border border-[#31778b] bg-[#31778b]/5 px-4 py-4 text-center font-bold text-[#343e41]">
                 {translateCommitment(report.initialEvaluations?.programCommitment)}
               </div>
             </div>
@@ -242,8 +302,8 @@ const ReportPreviewPage = () => {
         {/* ================= 4. RECOMMENDATIONS ================= */}
         <section className="mt-12">
           <div className="mb-6 flex items-center gap-4">
-            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#EAF5F0] font-bold text-[#1E7A5A]">4</span>
-            <h2 className="text-2xl font-bold text-[#1E7A5A]">التوصيات الأولية</h2>
+            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#31778b]/10 font-bold text-[#31778b]">4</span>
+            <h2 className="text-2xl font-bold text-[#31778b]">التوصيات الأولية</h2>
           </div>
           <div className="rounded-[22px] border border-[#E7F0EB] bg-white p-8 shadow-[0_10px_35px_rgba(30,122,90,0.08)]">
             <div className="w-full rounded-xl border border-[#E7F0EB] bg-[#FAFDFC] px-5 py-4 font-medium leading-relaxed min-h-[120px]">
@@ -255,23 +315,23 @@ const ReportPreviewPage = () => {
         {/* ================= 5. SIGNATURES & REJECTION BOX ================= */}
         <section className="mt-12">
           <div className="mb-6 flex items-center gap-4">
-            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#EAF5F0] font-bold text-[#1E7A5A]">5</span>
-            <h2 className="text-2xl font-bold text-[#1E7A5A]">الاعتماد والتوقيعات</h2>
+            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#31778b]/10 font-bold text-[#31778b]">5</span>
+            <h2 className="text-2xl font-bold text-[#31778b]">الاعتماد والتوقيعات</h2>
           </div>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             
             <div className="rounded-[22px] border border-[#E7F0EB] bg-white p-8 shadow-[0_10px_35px_rgba(30,122,90,0.08)]">
-              <h3 className="mb-8 border-b border-[#E7F0EB] pb-4 text-center text-xl font-bold text-[#1E7A5A]">مرشد التعافي (مُنشئ التقرير)</h3>
+              <h3 className="mb-8 border-b border-[#E7F0EB] pb-4 text-center text-xl font-bold text-[#31778b]">مرشد التعافي (مُنشئ التقرير)</h3>
               <div className="space-y-6">
                 <div className="flex justify-between border-b border-gray-100 pb-3">
                   <span className="font-semibold text-gray-500">الاسم</span>
-                  <span className="font-bold text-[#1E7A5A]">
+                  <span className="font-bold text-[#31778b]">
                     {report.doctor ? `${report.doctor.firstName} ${report.doctor.lastName}` : "-"}
                   </span>
                 </div>
                 <div className="flex justify-between border-b border-gray-100 pb-3">
                   <span className="font-semibold text-gray-500">تاريخ الإنشاء</span>
-                  <span className="font-bold text-[#1E7A5A]">
+                  <span className="font-bold text-[#31778b]">
                     {new Date(report.createdAt).toLocaleDateString("en-CA")}
                   </span>
                 </div>
@@ -279,11 +339,11 @@ const ReportPreviewPage = () => {
             </div>
 
             <div className="rounded-[22px] border border-[#E7F0EB] bg-white p-8 shadow-[0_10px_35px_rgba(30,122,90,0.08)]">
-              <h3 className="mb-8 border-b border-[#E7F0EB] pb-4 text-center text-xl font-bold text-[#1E7A5A]">رئيس الفريق (الاعتماد)</h3>
+              <h3 className="mb-8 border-b border-[#E7F0EB] pb-4 text-center text-xl font-bold text-[#31778b]">رئيس الفريق (الاعتماد)</h3>
               <div className="space-y-6">
                 <div className="flex justify-between border-b border-gray-100 pb-3">
                   <span className="font-semibold text-gray-500">الاسم</span>
-                  <span className="font-bold text-[#1E7A5A]">{teamLeaderFullName}</span>
+                  <span className="font-bold text-[#31778b]">{teamLeaderFullName}</span>
                 </div>
                 <div className="flex justify-between border-b border-gray-100 pb-3">
                   <span className="font-semibold text-gray-500">حالة الاعتماد</span>
@@ -322,7 +382,7 @@ const ReportPreviewPage = () => {
               disabled={processing}
               className="flex h-[58px] w-full max-w-[400px] items-center justify-center gap-2 rounded-2xl bg-[#34C759] text-[18px] font-bold text-white transition hover:-translate-y-[1px] hover:bg-[#2EB84E] disabled:opacity-60 sm:flex-1"
             >
-              {processing ? <Loader2 className="animate-spin" size={20} /> : <CheckCircle size={20} />}
+              {processing ? <Loader2 className="animate-spin" size= {20} /> : <CheckCircle size={20} />}
               {processing ? "جاري الاعتماد..." : "اعتماد التقرير"}
             </button>
             <button

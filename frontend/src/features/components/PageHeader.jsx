@@ -17,7 +17,7 @@ const PageHeader = ({
           الرئيسية
         </span>
 
-        <span className="mx-3 text-[#35C759]">{">"}</span>
+        <span className="mx-3 text-[#50A0B8]">{">"}</span>
 
         <span className="text-gray-500">
           {title}
@@ -38,7 +38,7 @@ const PageHeader = ({
             items-center
             gap-2
             rounded-xl
-            bg-[#247C5A]
+            bg-[#6AB7B9]
             px-6
             text-white
             transition
@@ -66,7 +66,7 @@ const PageHeader = ({
 
       {/* Divider */}
 
-      <div className="mt-8 h-px bg-[#E5F3EB]" />
+      <div className="mt-8 h-px bg-[#98cacb]" />
 
     </section>
   );

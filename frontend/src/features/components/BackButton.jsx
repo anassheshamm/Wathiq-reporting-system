@@ -24,7 +24,7 @@ const BackButton = ({ label = "العودة للخلف", showHome = false, to, c
   return (
     <button
       onClick={handleNavigation}
-      className={`mb-6 flex w-fit items-center gap-2 rounded-xl bg-gray-50 px-4 py-2.5 text-sm font-bold text-gray-600 shadow-sm transition-all hover:-translate-x-1 hover:bg-[#35C759] hover:text-white focus:outline-none focus:ring-2 focus:ring-[#35C759]/20 active:scale-95 ${className}`}
+      className={`mb-6 flex w-fit items-center gap-2 rounded-xl bg-gray-50 px-4 py-2.5 text-sm font-bold text-gray-600 shadow-sm transition-all hover:-translate-x-1 hover:bg-[#A9D3DF] hover:text-white focus:outline-none focus:ring-2 focus:ring-[#35C759]/20 active:scale-95 ${className}`}
       dir="rtl"
     >
       {showHome ? <Home size={18} /> : <ArrowRight size={18} />}

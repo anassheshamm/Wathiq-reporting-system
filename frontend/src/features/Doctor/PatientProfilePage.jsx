@@ -140,7 +140,7 @@ const basePath = location.pathname.startsWith("/admin")
   if (loading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[#FCFEFD]">
-        <div className="flex flex-col items-center gap-4 text-[#247C5A]">
+        <div className="flex flex-col items-center gap-4 text-[#4FA0B7]">
           <Loader2 className="h-10 w-10 animate-spin" />
           <p className="text-lg font-semibold">
             جاري تحميل بيانات المستفيد...
@@ -162,7 +162,7 @@ const basePath = location.pathname.startsWith("/admin")
           onClick={() =>
             navigate("/doctor/patients")
           }
-          className="rounded-xl bg-[#35C759] px-6 py-3 font-semibold text-white"
+          className="rounded-xl bg-[#4FA0B7] px-6 py-3 font-semibold text-white"
         >
           العودة للمستفيدين
         </button>
@@ -206,7 +206,7 @@ const basePath = location.pathname.startsWith("/admin")
                   `/doctor/edit-patient/${patient._id}`
                 )
               }
-              className="flex items-center gap-2 rounded-xl bg-[#35C759] px-7 py-4 font-semibold text-white transition hover:bg-[#2FB350]"
+              className="flex items-center gap-2 rounded-xl bg-[#4FA0B7] px-7 py-4 font-semibold text-white transition hover:bg-[#4FA0B7]/60"
             >
               <Pencil size={18} />
               تعديل المعلومات
@@ -226,10 +226,10 @@ const basePath = location.pathname.startsWith("/admin")
 
           <div className="mb-8 flex items-center gap-3">
 
-            <div className="rounded-xl bg-[#EAF8F1] p-3">
+            <div className="rounded-xl bg-[#4FA0B7]/30 p-3">
               <User
                 size={24}
-                className="text-[#247C5A]"
+                className="text-[#4FA0B7]"
               />
             </div>
 
@@ -397,7 +397,7 @@ const basePath = location.pathname.startsWith("/admin")
 
           </div>
 
-        </section>        {/* ====================== */}
+        </section>        
         {/* Contact Information */}
         {/* ====================== */}
 
@@ -405,10 +405,10 @@ const basePath = location.pathname.startsWith("/admin")
 
           <div className="mb-8 flex items-center gap-3">
 
-            <div className="rounded-xl bg-[#EAF8F1] p-3">
+            <div className="rounded-xl bg-[#4FA0B7]/30 p-3">
               <Phone
                 size={24}
-                className="text-[#247C5A]"
+                className="text-[#4FA0B7]"
               />
             </div>
 
@@ -528,10 +528,10 @@ const basePath = location.pathname.startsWith("/admin")
         <section className="mb-20">
           <div className="mb-8 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="rounded-xl bg-[#EAF8F1] p-3">
+              <div className="rounded-xl bg-[#4FA0B7]/30 p-3">
                 <FileText
                   size={24}
-                  className="text-[#247C5A]"
+                  className="text-[#4FA0B7]"
                 />
               </div>
               <div>
@@ -542,7 +542,7 @@ const basePath = location.pathname.startsWith("/admin")
             {user?.role === "doctor" && (
   <button
     onClick={() => setIsReportModalOpen(true)}
-    className="flex items-center gap-2 rounded-xl bg-[#35C759] px-6 py-3 font-semibold text-white transition hover:bg-[#2FB350]"
+    className="flex items-center gap-2 rounded-xl bg-[#4FA0B7] px-6 py-3 font-semibold text-white transition hover:bg-[#4FA0B7]/60"
   >
     <Plus size={18} /> إضافة تقرير
   </button>
@@ -565,7 +565,7 @@ const basePath = location.pathname.startsWith("/admin")
                 {allReports.length > 0 ? (
                   allReports.map((report) => (
                     <tr key={report._id} className="border-t">
-                      <td className="px-8 py-6 font-bold text-[#1E7A5A]">
+                      <td className="px-8 py-6 font-bold text-[#4FA0B7]">
                         {report.reportType}
                       </td>
                       <td className="px-8 py-6">
@@ -667,18 +667,18 @@ const basePath = location.pathname.startsWith("/admin")
     justify-center
     rounded-2xl
     border
-    border-[#35C759]
-    bg-[#EDF8F2]
+    border-[#4FA0B7]
+    bg-[#4FA0B7]/20
     transition
     hover:scale-105
   "
 >
   <FileText
     size={40}
-    className="mb-4 text-[#247C5A]"
+    className="mb-4 text-[#4FA0B7]"
   />
 
-  <span className="text-xl font-bold text-[#247C5A]">
+  <span className="text-xl font-bold text-[#4FA0B7]">
     التقرير القبلي
   </span>
 </button>
@@ -701,8 +701,8 @@ const basePath = location.pathname.startsWith("/admin")
                   justify-center
                   rounded-2xl
                   border
-                  border-[#35C759]
-                  bg-[#EDF8F2]
+                  border-[#4FA0B7]
+                  bg-[#4FA0B7]/20
                   transition
                   hover:scale-105
                 "
@@ -710,10 +710,10 @@ const basePath = location.pathname.startsWith("/admin")
 
                 <FileText
                   size={40}
-                  className="mb-4 text-[#247C5A]"
+                  className="mb-4 text-[#4FA0B7]"
                 />
 
-                <span className="text-xl font-bold text-[#247C5A]">
+                <span className="text-xl font-bold text-[#4FA0B7]">
                   التقرير البعدي
                 </span>
 
