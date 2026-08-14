@@ -33,7 +33,7 @@ const DoctorRow = ({ doctor }) => {
 
       <td className="px-8 py-6 text-center font-semibold">
         {doctor.isActive ? (
-          <span className="text-emerald-600">نشط</span>
+          <span className="text-[#50A0B8]">نشط</span>
         ) : (
           <span className="text-rose-500">غير نشط</span>
         )}

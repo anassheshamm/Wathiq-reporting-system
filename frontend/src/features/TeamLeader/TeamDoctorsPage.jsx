@@ -22,7 +22,7 @@ const TeamDoctorsPage = () => {
       ) : (
         <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
           <table className="w-full">
-            <thead className="bg-[#F8FAFC]">
+            <thead className="bg-[#4FA0B7]/30">
               <tr className="text-right text-gray-600">
                 <th className="px-6 py-5 font-semibold">الاسم</th>
                 <th className="px-6 py-5 font-semibold">رقم الهوية</th>

@@ -29,7 +29,7 @@ const schema = z
     firstName: z.string().min(2, "الاسم الأول مطلوب"),
     middleName: z.string().min(2, "الاسم الأوسط مطلوب"),
     lastName: z.string().min(2, "اسم العائلة مطلوب"),
-    nationalId: z.string().length(14, "رقم الهوية يجب أن يكون 14 رقماً"),
+    nationalId: z.string().length(10, "رقم الهوية يجب أن يكون 10  رقماً"),
     phone: z.string().min(11, "رقم الهاتف غير صحيح"),
     email: z.string().email("بريد إلكتروني غير صحيح"),
     gender: z.enum(["male", "female"], { errorMap: () => ({ message: "اختر الجنس" }) }),
@@ -164,7 +164,7 @@ export default function Register() {
               <div className="md:col-span-2">
                 <Input
                   label="رقم الهوية"
-                  placeholder="ادخل رقم الهوية (14 رقم)"
+                  placeholder="ادخل رقم الهوية"
                   icon={<CreditCard size={18} />}
                   error={errors.nationalId?.message}
                   {...register("nationalId")}
@@ -237,7 +237,7 @@ export default function Register() {
             <Button
               type="submit"
               disabled={loading}
-              className="h-14 w-full md:w-1/2 rounded-2xl text-lg disabled:opacity-70 disabled:cursor-not-allowed"
+              className="h-14 w-full bg-[#4FA0B7] md:w-1/2 rounded-2xl text-lg disabled:opacity-70 disabled:cursor-not-allowed"
             >
               {loading ? "جاري إنشاء الحساب..." : "إنشاء الحساب"}
             </Button>

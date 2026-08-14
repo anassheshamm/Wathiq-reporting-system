@@ -101,7 +101,7 @@ const ResetPasswordPage = () => {
               h-14
               w-full
               rounded-xl
-              bg-[#35C759]
+              bg-[#4FA0B7]
               text-white
               text-lg
               font-semibold
@@ -162,7 +162,7 @@ const PasswordInput = ({
           pl-20
           text-right
           outline-none
-          focus:border-[#35C759]
+          focus:border-[#4FA0B7]
         "
       />
 

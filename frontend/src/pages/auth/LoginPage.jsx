@@ -152,9 +152,9 @@ const LoginPage = () => {
                   outline-none
                   transition
                   placeholder:text-gray-400
-                  focus:border-[#35C759]
+                  focus:border-[#4FA0B7]
                   focus:ring-2
-                  focus:ring-[#35C759]/10
+                  focus:ring-[#4FA0B7]/10
                 "
               />
             </div>
@@ -206,9 +206,9 @@ const LoginPage = () => {
                   outline-none
                   transition
                   placeholder:text-gray-400
-                  focus:border-[#35C759]
+                  focus:border-[#4FA0B7]
                   focus:ring-2
-                  focus:ring-[#35C759]/10
+                  focus:ring-[#4FA0B7]/10
                 "
               />
             </div>
@@ -223,7 +223,7 @@ const LoginPage = () => {
               className="
                 text-sm
                 font-medium
-                text-[#247C5A]
+                text-[#4FA0B7]
                 transition
                 hover:underline
               "
@@ -257,12 +257,12 @@ const LoginPage = () => {
               h-14
               w-full
               rounded-xl
-              bg-[#35C759]
+              bg-[#4FA0B7]
               text-lg
               font-semibold
               text-white
               transition
-              hover:bg-[#2FB350]
+              hover:bg-[#4FA0B7]/60
               disabled:cursor-not-allowed
               disabled:bg-gray-300
             "

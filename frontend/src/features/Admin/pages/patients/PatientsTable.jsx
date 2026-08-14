@@ -5,7 +5,7 @@ const PatientsTable = ({ patients = [] }) => {
     <div className="overflow-hidden rounded-[28px] bg-white shadow-sm">
       <table dir="rtl" className="w-full border-separate border-spacing-y-4">
         <thead>
-          <tr className="bg-[#EDF8F2]">
+          <tr className="bg-[#4FA0B7]/30">
             <th className="rounded-r-2xl px-6 py-5 text-right font-semibold">
               الاسم
             </th>

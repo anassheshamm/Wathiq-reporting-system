@@ -39,7 +39,7 @@ const PostReportPreview = () => {
       text: "هل أنت متأكد من رغبتك في اعتماد هذا التقرير؟",
       icon: "question",
       showCancelButton: true,
-      confirmButtonColor: "#34C759",
+      confirmButtonColor: "#35C759",
       cancelButtonColor: "#888",
       confirmButtonText: "نعم، اعتمده",
       cancelButtonText: "إلغاء",
@@ -56,7 +56,7 @@ const PostReportPreview = () => {
         title: "تم بنجاح",
         text: "تم اعتماد التقرير بنجاح",
         icon: "success",
-        confirmButtonColor: "#34C759",
+        confirmButtonColor: "#35C759",
         customClass: { popup: "font-['Cairo']" },
       });
 
@@ -66,7 +66,7 @@ const PostReportPreview = () => {
         title: "خطأ",
         text: err.response?.data?.message || "حدث خطأ أثناء الاعتماد.",
         icon: "error",
-        confirmButtonColor: "#34C759",
+        confirmButtonColor: "#35C759",
         customClass: { popup: "font-['Cairo']" },
       });
     } finally {
@@ -103,7 +103,7 @@ const PostReportPreview = () => {
         title: "تم الرفض",
         text: "تم رفض التقرير بنجاح",
         icon: "success",
-        confirmButtonColor: "#34C759",
+        confirmButtonColor: "#35C759",
         customClass: { popup: "font-['Cairo']" },
       });
 
@@ -113,7 +113,7 @@ const PostReportPreview = () => {
         title: "خطأ",
         text: err.response?.data?.message || "حدث خطأ أثناء الرفض.",
         icon: "error",
-        confirmButtonColor: "#34C759",
+        confirmButtonColor: "#35C759",
         customClass: { popup: "font-['Cairo']" },
       });
     } finally {
@@ -124,7 +124,7 @@ const PostReportPreview = () => {
   if (loading) {
     return (
       <div className="flex min-h-[60vh] items-center justify-center">
-        <Loader2 className="h-10 w-10 animate-spin text-[#35C759]" />
+        <Loader2 className="h-10 w-10 animate-spin text-[#4FA0B7]" />
       </div>
     );
   }
@@ -158,7 +158,7 @@ const PostReportPreview = () => {
   const teamLeaderFullName = report.teamLeader ? `${report.teamLeader.firstName || ""} ${report.teamLeader.lastName || ""}` : "غير متوفر";
 
   return (
-    <div dir="rtl" className="min-h-screen font-['Cairo',sans-serif] text-[15px] leading-[1.9] text-[#27343A] print:bg-white print:bg-none">
+    <div dir="rtl" className="min-h-screen bg-gradient-to-b from-[#4FA0B7]/10 to-white font-['Cairo',sans-serif] text-[15px] leading-[1.9] text-[#27343A] print:bg-white print:bg-none">
       
      
 
@@ -170,25 +170,25 @@ const PostReportPreview = () => {
             <ArrowRight size={20} />
             رجوع
           </button>
-          <button onClick={() => window.print()} className="flex items-center gap-2 rounded-xl bg-[#34C759] px-5 py-3 font-semibold text-white shadow-sm transition hover:bg-[#2FB350]">
+          <button onClick={() => window.print()} className="flex items-center gap-2 rounded-xl bg-[#31778b] px-5 py-3 font-semibold text-white shadow-sm transition hover:bg-[#266273]">
             <Printer size={20} />
             طباعة التقرير
           </button>
         </div>
 
         {/* ================= LETTERHEAD ================= */}
-        <header className="mb-8 rounded-[28px] border border-[#E7F0EB] bg-white/95 p-[28px] shadow-[0_10px_35px_rgba(30,122,90,0.08)] print:border-none print:shadow-none print:p-0">
+        <header className="mb-8 rounded-[28px] border border-[#f9f9f9] bg-white/95 p-[28px] shadow-[0_10px_35px_rgba(30,122,90,0.08)] print:border-none print:shadow-none print:p-0">
           <div className="mb-8 flex flex-wrap items-center justify-center gap-12 print:mb-4">
             <img src="/logo.png" alt="Logo" className="h-16 object-contain" />
             <img src="/logo2.png" alt="Logo" className="h-16 object-contain" />
           </div>
-          <div className="my-6 h-[2px] w-full bg-gradient-to-r from-transparent via-[#34C759] to-transparent print:bg-[#34C759]" />
+          <div className="my-6 h-[2px] w-full bg-gradient-to-r from-transparent via-[#4FA0B7] to-transparent print:bg-[#4FA0B7]" />
           <div className="flex flex-col justify-between gap-6 md:flex-row print:flex-row print:items-center">
             <div>
-              <h1 className="text-3xl font-bold text-[#1E7A5A]">التقرير الخاص بالمستفيد</h1>
+              <h1 className="text-3xl font-bold text-[#31778b]">التقرير الخاص بالمستفيد</h1>
               <p className="mt-2 text-gray-500">تقرير متابعة وتقييم المتعافي</p>
             </div>
-            <div className="rounded-full bg-[#EAF5F0] border border-[#1E7A5A]/10 px-8 py-3 font-bold text-[#1E7A5A]">
+            <div className="rounded-full bg-[#4FA0B7]/20 px-8 py-3 font-bold text-[#4FA0B7]">
               بعدي (نسخة معاينة)
             </div>
           </div>
@@ -211,37 +211,37 @@ const PostReportPreview = () => {
         {/* ================= 1. PATIENT INFO ================= */}
         <section className="mt-8 print:mt-4">
           <div className="mb-6 flex items-center gap-4 print:mb-2">
-            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#EAF5F0] font-bold text-[#1E7A5A]">1</span>
-            <h2 className="text-2xl font-bold text-[#1E7A5A]">بيانات المستفيد</h2>
+            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#31778b]/5 font-bold text-[#4FA0B7]">1</span>
+            <h2 className="text-2xl font-bold text-[#31778b]">بيانات المستفيد</h2>
           </div>
           <div className="rounded-[22px] border border-[#E7F0EB] bg-white p-8 shadow-[0_10px_35px_rgba(30,122,90,0.08)] print:border-gray-300 print:shadow-none print:p-4">
             <div className="grid grid-cols-1 gap-7 md:grid-cols-2">
               <div className="flex flex-col gap-3">
-                <span className="font-semibold text-[#1E7A5A]">اسم المستفيد</span>
+                <span className="font-semibold text-[#31778b]">اسم المستفيد</span>
                 <div className="w-full rounded-xl border border-[#E7F0EB] bg-[#FAFDFC] px-5 py-4 font-medium print:bg-white print:border-b">{patientFullName}</div>
               </div>
               <div className="flex flex-col gap-3">
-                <span className="font-semibold text-[#1E7A5A]">اسم البرنامج</span>
+                <span className="font-semibold text-[#31778b]">اسم البرنامج</span>
                 <div className="w-full rounded-xl border border-[#E7F0EB] bg-[#FAFDFC] px-5 py-4 font-medium print:bg-white print:border-b">{report.beneficiaryInformation?.programName || "-"}</div>
               </div>
               <div className="flex flex-col gap-3">
-                <span className="font-semibold text-[#1E7A5A]">تاريخ البدء</span>
+                <span className="font-semibold text-[#31778b]">تاريخ البدء</span>
                 <div className="w-full rounded-xl border border-[#E7F0EB] bg-[#FAFDFC] px-5 py-4 font-medium print:bg-white print:border-b">
                   {report.beneficiaryInformation?.startDate ? new Date(report.beneficiaryInformation.startDate).toLocaleDateString("en-CA") : "-"}
                 </div>
               </div>
               <div className="flex flex-col gap-3">
-                <span className="font-semibold text-[#1E7A5A]">تاريخ التخرج</span>
+                <span className="font-semibold text-[#31778b]">تاريخ التخرج</span>
                 <div className="w-full rounded-xl border border-[#E7F0EB] bg-[#FAFDFC] px-5 py-4 font-medium print:bg-white print:border-b">
                   {report.beneficiaryInformation?.graduationDate ? new Date(report.beneficiaryInformation.graduationDate).toLocaleDateString("en-CA") : "-"}
                 </div>
               </div>
               <div className="flex flex-col gap-3">
-                <span className="font-semibold text-[#1E7A5A]">رقم الهوية</span>
+                <span className="font-semibold text-[#31778b]">رقم الهوية</span>
                 <div className="w-full rounded-xl border border-[#E7F0EB] bg-[#FAFDFC] px-5 py-4 font-medium print:bg-white print:border-b">{report.patient?.nationalId || "-"}</div>
               </div>
               <div className="flex flex-col gap-3">
-                <span className="font-semibold text-[#1E7A5A]">اسم المرشد</span>
+                <span className="font-semibold text-[#31778b]">اسم المرشد</span>
                 <div className="w-full rounded-xl border border-[#E7F0EB] bg-[#FAFDFC] px-5 py-4 font-medium print:bg-white print:border-b">{report.beneficiaryInformation?.counselorName || "-"}</div>
               </div>
             </div>
@@ -251,20 +251,20 @@ const PostReportPreview = () => {
         {/* ================= 2. CASE SUMMARY ================= */}
         <section className="mt-12 print:mt-6 print:break-inside-avoid">
           <div className="mb-6 flex items-center gap-4 print:mb-2">
-            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#EAF5F0] font-bold text-[#1E7A5A]">2</span>
-            <h2 className="text-2xl font-bold text-[#1E7A5A]">ملخص الحالة المتعلق بتعديل الوضع</h2>
+            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#31778b]/5 font-bold text-[#4FA0B7]">2</span>
+            <h2 className="text-2xl font-bold text-[#31778b]">ملخص الحالة المتعلق بتعديل الوضع</h2>
           </div>
           <div className="rounded-[22px] border border-[#E7F0EB] bg-white p-8 shadow-[0_10px_35px_rgba(30,122,90,0.08)] print:border-gray-300 print:shadow-none print:p-4">
             <div className="flex flex-col gap-3">
-              <span className="font-semibold text-[#1E7A5A]">ملخص الحالة</span>
+              <span className="font-semibold text-[#31778b]">ملخص الحالة</span>
               <div className="min-h-[120px] w-full rounded-xl border border-[#E7F0EB] bg-[#FAFDFC] px-5 py-4 font-medium leading-relaxed print:bg-white print:border-none print:px-0">
                 {report.caseSummary?.summary || "-"}
               </div>
             </div>
             <div className="my-8 h-[1px] w-full bg-[#E7F0EB] print:my-4"></div>
             <div className="flex items-center gap-4">
-              <span className="font-semibold text-[#1E7A5A]">شدة الإدمان:</span>
-              <div className="rounded-xl bg-[#F8FCFA] border border-[#E7F0EB] px-6 py-2 font-bold text-[#1E7A5A] print:bg-white">
+              <span className="font-semibold text-[#31778b]">شدة الإدمان:</span>
+              <div className="rounded-xl bg-[#31778b]/5 border border-[#E7F0EB] px-6 py-2 font-bold text-[#31778b] print:bg-white">
                 {translateSeverity(report.caseSummary?.addictionSeverity)}
               </div>
             </div>
@@ -274,25 +274,25 @@ const PostReportPreview = () => {
         {/* ================= 3. PROGRESS ASSESSMENT ================= */}
         <section className="mt-12 print:mt-6 print:break-inside-avoid">
           <div className="mb-6 flex items-center gap-4 print:mb-2">
-            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#EAF5F0] font-bold text-[#1E7A5A]">3</span>
-            <h2 className="text-2xl font-bold text-[#1E7A5A]">قياس التقدم في الجوانب التالية</h2>
+            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#31778b]/5 font-bold text-[#4FA0B7]">3</span>
+            <h2 className="text-2xl font-bold text-[#31778b]">قياس التقدم في الجوانب التالية</h2>
           </div>
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
             <div className="rounded-[20px] border border-[#E7F0EB] bg-white p-7 shadow-[0_8px_24px_rgba(30,122,90,0.05)] print:border-gray-300 print:shadow-none print:p-4">
-              <h3 className="mb-6 border-b border-[#E7F0EB] pb-4 text-center text-lg font-bold text-[#1E7A5A] print:mb-3 print:pb-2">الجانب النفسي</h3>
-              <div className="rounded-xl border border-[#34C759] bg-[#F5FCF7] px-4 py-4 text-center font-bold text-[#1E7A5A] print:bg-white print:border-gray-300">
+              <h3 className="mb-6 border-b border-[#E7F0EB] pb-4 text-center text-lg font-bold text-[#31778b] print:mb-3 print:pb-2">الجانب النفسي</h3>
+              <div className="rounded-xl border border-[#31778b] bg-[#31778b]/5 px-4 py-4 text-center font-bold text-[#31778b] print:bg-white print:border-gray-300">
                 {translatePsychological(report.progressAssessment?.psychologicalStatus)}
               </div>
             </div>
             <div className="rounded-[20px] border border-[#E7F0EB] bg-white p-7 shadow-[0_8px_24px_rgba(30,122,90,0.05)] print:border-gray-300 print:shadow-none print:p-4">
-              <h3 className="mb-6 border-b border-[#E7F0EB] pb-4 text-center text-lg font-bold text-[#1E7A5A] print:mb-3 print:pb-2">الجانب السلوكي</h3>
-              <div className="rounded-xl border border-[#34C759] bg-[#F5FCF7] px-4 py-4 text-center font-bold text-[#1E7A5A] print:bg-white print:border-gray-300">
+              <h3 className="mb-6 border-b border-[#E7F0EB] pb-4 text-center text-lg font-bold text-[#31778b] print:mb-3 print:pb-2">الجانب السلوكي</h3>
+              <div className="rounded-xl border border-[#31778b] bg-[#31778b]/5 px-4 py-4 text-center font-bold text-[#31778b] print:bg-white print:border-gray-300">
                 {translateBehavioral(report.progressAssessment?.behavioralStatus)}
               </div>
             </div>
             <div className="rounded-[20px] border border-[#E7F0EB] bg-white p-7 shadow-[0_8px_24px_rgba(30,122,90,0.05)] print:border-gray-300 print:shadow-none print:p-4">
-              <h3 className="mb-6 border-b border-[#E7F0EB] pb-4 text-center text-lg font-bold text-[#1E7A5A] print:mb-3 print:pb-2">الجانب الاجتماعي</h3>
-              <div className="rounded-xl border border-[#34C759] bg-[#F5FCF7] px-4 py-4 text-center font-bold text-[#1E7A5A] print:bg-white print:border-gray-300">
+              <h3 className="mb-6 border-b border-[#E7F0EB] pb-4 text-center text-lg font-bold text-[#31778b] print:mb-3 print:pb-2">الجانب الاجتماعي</h3>
+              <div className="rounded-xl border border-[#31778b] bg-[#31778b]/5 px-4 py-4 text-center font-bold text-[#31778b] print:bg-white print:border-gray-300">
                 {translateSocial(report.progressAssessment?.socialStatus)}
               </div>
             </div>
@@ -302,8 +302,8 @@ const PostReportPreview = () => {
         {/* ================= 4. PROGRAM PROGRESS ================= */}
         <section className="mt-12 print:mt-6 print:break-inside-avoid">
           <div className="mb-6 flex items-center gap-4 print:mb-2">
-            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#EAF5F0] font-bold text-[#1E7A5A]">4</span>
-            <h2 className="text-2xl font-bold text-[#1E7A5A]">مدى تقدم المتعافي في البرنامج</h2>
+            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#31778b]/5 font-bold text-[#4FA0B7]">4</span>
+            <h2 className="text-2xl font-bold text-[#31778b]">مدى تقدم المتعافي في البرنامج</h2>
           </div>
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
             {[
@@ -316,7 +316,7 @@ const PostReportPreview = () => {
             ].map((item, idx) => (
               <div key={idx} className="rounded-[20px] border border-[#E7F0EB] bg-white p-6 shadow-[0_8px_24px_rgba(30,122,90,0.05)] print:border-gray-300 print:shadow-none print:p-4">
                 <span className="text-gray-500 font-semibold mb-2 block print:mb-1">{item.title}</span>
-                <div className="text-lg font-bold text-[#1E7A5A]">{item.val || "-"}</div>
+                <div className="text-lg font-bold text-[#31778b]">{item.val || "-"}</div>
               </div>
             ))}
           </div>
@@ -326,20 +326,20 @@ const PostReportPreview = () => {
         <section className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6 print:mt-6 print:break-inside-avoid">
           <div className="rounded-[22px] border border-[#E7F0EB] bg-white p-8 shadow-[0_10px_35px_rgba(30,122,90,0.08)] print:border-gray-300 print:shadow-none print:p-4">
              <div className="mb-4 flex items-center gap-3 print:mb-2">
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#EAF5F0] font-bold text-[#1E7A5A]">5</span>
-              <h3 className="text-xl font-bold text-[#1E7A5A]">الاستقرار بدون انتكاسة</h3>
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#31778b]/5 font-bold text-[#4FA0B7]">5</span>
+              <h3 className="text-xl font-bold text-[#31778b]">الاستقرار بدون انتكاسة</h3>
             </div>
-            <div className="rounded-xl bg-[#F8FCFA] border border-[#E7F0EB] px-6 py-4 font-bold text-[#1E7A5A] text-center print:bg-white print:border-gray-300">
+            <div className="rounded-xl bg-[#31778b]/5 border border-[#E7F0EB] px-6 py-4 font-bold text-[#31778b] text-center print:bg-white print:border-gray-300">
               {translateStability(report.recoveryStability)}
             </div>
           </div>
 
           <div className="rounded-[22px] border border-[#E7F0EB] bg-white p-8 shadow-[0_10px_35px_rgba(30,122,90,0.08)] print:border-gray-300 print:shadow-none print:p-4">
              <div className="mb-4 flex items-center gap-3 print:mb-2">
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#EAF5F0] font-bold text-[#1E7A5A]">6</span>
-              <h3 className="text-xl font-bold text-[#1E7A5A]">خطة ما بعد البرنامج</h3>
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#31778b]/5 font-bold text-[#4FA0B7]">6</span>
+              <h3 className="text-xl font-bold text-[#31778b]">خطة ما بعد البرنامج</h3>
             </div>
-            <div className="rounded-xl bg-[#F8FCFA] border border-[#E7F0EB] px-6 py-4 font-bold text-[#1E7A5A] text-center print:bg-white print:border-gray-300">
+            <div className="rounded-xl bg-[#31778b]/5 border border-[#E7F0EB] px-6 py-4 font-bold text-[#31778b] text-center print:bg-white print:border-gray-300">
               {translateReadiness(report.personalPlanReadiness)}
             </div>
           </div>
@@ -349,8 +349,8 @@ const PostReportPreview = () => {
         <section className="mt-12 grid grid-cols-1 gap-6 print:mt-6 print:break-inside-avoid">
           <div className="rounded-[22px] border border-[#E7F0EB] bg-white p-8 shadow-[0_10px_35px_rgba(30,122,90,0.08)] print:border-gray-300 print:shadow-none print:p-4">
             <div className="mb-4 flex items-center gap-3 print:mb-2">
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#EAF5F0] font-bold text-[#1E7A5A]">7</span>
-              <h3 className="text-xl font-bold text-[#1E7A5A]">إشعار الأسرة والعمل خلال فترة التعافي</h3>
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#31778b]/5 font-bold text-[#4FA0B7]">7</span>
+              <h3 className="text-xl font-bold text-[#31778b]">إشعار الأسرة والعمل خلال فترة التعافي</h3>
             </div>
             <div className="w-full rounded-xl border border-[#E7F0EB] bg-[#FAFDFC] px-5 py-4 font-medium leading-relaxed min-h-[100px] print:bg-white print:border-none print:px-0">
               {report.familyNotification?.notes || "لا توجد ملاحظات"}
@@ -358,8 +358,8 @@ const PostReportPreview = () => {
           </div>
           <div className="rounded-[22px] border border-[#E7F0EB] bg-white p-8 shadow-[0_10px_35px_rgba(30,122,90,0.08)] print:border-gray-300 print:shadow-none print:p-4">
             <div className="mb-4 flex items-center gap-3 print:mb-2">
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#EAF5F0] font-bold text-[#1E7A5A]">8</span>
-              <h3 className="text-xl font-bold text-[#1E7A5A]">توصيات المرشد</h3>
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#31778b]/5 font-bold text-[#4FA0B7]">8</span>
+              <h3 className="text-xl font-bold text-[#31778b]">توصيات المرشد</h3>
             </div>
             <div className="w-full rounded-xl border border-[#E7F0EB] bg-[#FAFDFC] px-5 py-4 font-medium leading-relaxed min-h-[100px] print:bg-white print:border-none print:px-0">
               {report.recommendations || "لا توجد توصيات"}
@@ -367,8 +367,8 @@ const PostReportPreview = () => {
           </div>
           <div className="rounded-[22px] border border-[#E7F0EB] bg-white p-8 shadow-[0_10px_35px_rgba(30,122,90,0.08)] print:border-gray-300 print:shadow-none print:p-4">
             <div className="mb-4 flex items-center gap-3 print:mb-2">
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#EAF5F0] font-bold text-[#1E7A5A]">9</span>
-              <h3 className="text-xl font-bold text-[#1E7A5A]">ملاحظات إضافية</h3>
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#31778b]/5 font-bold text-[#4FA0B7]">9</span>
+              <h3 className="text-xl font-bold text-[#31778b]">ملاحظات إضافية</h3>
             </div>
             <div className="w-full rounded-xl border border-[#E7F0EB] bg-[#FAFDFC] px-5 py-4 font-medium leading-relaxed min-h-[100px] print:bg-white print:border-none print:px-0">
               {report.additionalNotes || "لا توجد ملاحظات"}
@@ -379,23 +379,23 @@ const PostReportPreview = () => {
         {/* ================= 10. SIGNATURES & REJECTION BOX ================= */}
         <section className="mt-12 print:mt-6 print:break-inside-avoid">
           <div className="mb-6 flex items-center gap-4 print:mb-2">
-            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#EAF5F0] font-bold text-[#1E7A5A]">10</span>
-            <h2 className="text-2xl font-bold text-[#1E7A5A]">الاعتماد والتوقيعات</h2>
+            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#31778b]/5 font-bold text-[#4FA0B7]">10</span>
+            <h2 className="text-2xl font-bold text-[#31778b]">الاعتماد والتوقيعات</h2>
           </div>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             
             <div className="rounded-[22px] border border-[#E7F0EB] bg-white p-8 shadow-[0_10px_35px_rgba(30,122,90,0.08)] print:border-gray-300 print:shadow-none print:p-4">
-              <h3 className="mb-8 border-b border-[#E7F0EB] pb-4 text-center text-xl font-bold text-[#1E7A5A]">مرشد التعافي (مُنشئ التقرير)</h3>
+              <h3 className="mb-8 border-b border-[#E7F0EB] pb-4 text-center text-xl font-bold text-[#31778b]">مرشد التعافي (مُنشئ التقرير)</h3>
               <div className="space-y-6">
                 <div className="flex justify-between border-b border-gray-100 pb-3">
                   <span className="font-semibold text-gray-500">الاسم</span>
-                  <span className="font-bold text-[#1E7A5A]">
+                  <span className="font-bold text-[#31778b]">
                     {report.doctor ? `${report.doctor.firstName} ${report.doctor.lastName}` : "-"}
                   </span>
                 </div>
                 <div className="flex justify-between border-b border-gray-100 pb-3">
                   <span className="font-semibold text-gray-500">تاريخ الإنشاء</span>
-                  <span className="font-bold text-[#1E7A5A]">
+                  <span className="font-bold text-[#31778b]">
                     {new Date(report.createdAt).toLocaleDateString("en-CA")}
                   </span>
                 </div>
@@ -403,11 +403,11 @@ const PostReportPreview = () => {
             </div>
 
             <div className="rounded-[22px] border border-[#E7F0EB] bg-white p-8 shadow-[0_10px_35px_rgba(30,122,90,0.08)] print:border-gray-300 print:shadow-none print:p-4">
-              <h3 className="mb-8 border-b border-[#E7F0EB] pb-4 text-center text-xl font-bold text-[#1E7A5A]">رئيس الفريق (الاعتماد)</h3>
+              <h3 className="mb-8 border-b border-[#E7F0EB] pb-4 text-center text-xl font-bold text-[#31778b]">رئيس الفريق (الاعتماد)</h3>
               <div className="space-y-6">
                 <div className="flex justify-between border-b border-gray-100 pb-3">
                   <span className="font-semibold text-gray-500">الاسم</span>
-                  <span className="font-bold text-[#1E7A5A]">{teamLeaderFullName}</span>
+                  <span className="font-bold text-[#31778b]">{teamLeaderFullName}</span>
                 </div>
                 <div className="flex justify-between border-b border-gray-100 pb-3">
                   <span className="font-semibold text-gray-500">حالة الاعتماد</span>
@@ -418,7 +418,7 @@ const PostReportPreview = () => {
                 {report.approval?.approvedAt && (
                   <div className="flex justify-between border-b border-gray-100 pb-3">
                     <span className="font-semibold text-gray-500">تاريخ الاعتماد</span>
-                    <span className="font-bold text-[#1E7A5A]">
+                    <span className="font-bold text-[#31778b]">
                       {new Date(report.approval.approvedAt).toLocaleDateString("en-CA")}
                     </span>
                   </div>
@@ -444,7 +444,7 @@ const PostReportPreview = () => {
             <button
               onClick={handleApprove}
               disabled={processing}
-              className="flex h-[58px] w-full max-w-[400px] items-center justify-center gap-2 rounded-2xl bg-[#34C759] text-[18px] font-bold text-white transition hover:-translate-y-[1px] hover:bg-[#2EB84E] disabled:opacity-60 sm:flex-1"
+              className="flex h-[58px] w-full max-w-[400px] items-center justify-center gap-2 rounded-2xl bg-[#31778b] text-[18px] font-bold text-white transition hover:-translate-y-[1px] hover:bg-[#266273] disabled:opacity-60 sm:flex-1"
             >
               {processing ? <Loader2 className="animate-spin" size={20} /> : <CheckCircle size={20} />}
               {processing ? "جاري الاعتماد..." : "اعتماد التقرير"}

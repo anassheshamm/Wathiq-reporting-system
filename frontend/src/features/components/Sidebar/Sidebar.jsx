@@ -28,7 +28,7 @@ const Sidebar = ({ menu = [] }) => {
     <>
       <aside
         dir="rtl"
-        className="sticky top-0 h-screen w-[320px] shrink-0 border-l border-[#E6F2EC] bg-[#F7FFF9] px-6 py-8 shadow-sm"
+        className="sticky top-0 h-screen w-[320px] shrink-0 border-l border-[#fcfefd] bg-[#E4EFF3] px-6 py-8 shadow-sm"
       >
         <div className="flex h-full flex-col">
           
@@ -50,7 +50,7 @@ const Sidebar = ({ menu = [] }) => {
           <button
             type="button"
             onClick={() => setIsInviteModalOpen(true)}
-            className="mb-8 flex h-14 w-full items-center justify-center gap-2 rounded-2xl bg-[#35C759] text-lg font-semibold text-white transition-all duration-200 hover:bg-[#2FB350] active:scale-[0.98]"
+            className="mb-8 flex h-14 w-full items-center justify-center gap-2 rounded-2xl bg-[#4FA0B7] text-lg font-semibold text-white transition-all duration-200 hover:bg-[#247c95] active:scale-[0.98]"
           >
             <Plus size={22} />
             <span>إضافة عضو جديد</span>
@@ -67,7 +67,7 @@ const Sidebar = ({ menu = [] }) => {
               value={searchTerm} // 3. Bind to Context
               onChange={(e) => setSearchTerm(e.target.value)} // 4. Update Context directly
               placeholder="ابحث بالاسم أو رقم الهوية للمستفيد"
-              className="h-14 w-full rounded-2xl bg-[#EDF8F2] pr-14 pl-4 text-right text-base outline-none transition placeholder:text-gray-500 focus:ring-2 focus:ring-[#247C5A]/10"
+              className="h-14 w-full rounded-2xl bg-[#EFEFEF] pr-14 pl-4 text-right text-base outline-none transition placeholder:text-gray-500 focus:ring-2 focus:ring-[#247C5A]/10"
             />
           </div>
 

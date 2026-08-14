@@ -6,6 +6,11 @@ export default function Logo() {
         alt="وثّق"
         className="h-28 w-auto object-contain md:h-32"
       />
+        <img
+        src="/logo2.png"
+        alt="وثّق"
+        className="h-28 w-auto object-contain md:h-32"
+      />
     </div>
   );
 }

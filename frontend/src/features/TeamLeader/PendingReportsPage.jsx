@@ -97,7 +97,7 @@ const PendingReportsPage = () => {
       ) : (
         <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
           <table className="w-full">
-            <thead className="bg-[#F8FAFC]">
+            <thead className="bg-[#4FA0B7]/30">
               <tr className="text-right text-gray-600">
                 <th className="px-6 py-5 font-semibold">نوع التقرير</th>
                 <th className="px-6 py-5 font-semibold">اسم البرنامج</th>
@@ -111,7 +111,7 @@ const PendingReportsPage = () => {
               {reports.length > 0 ? (
                 reports.map((report) => (
                   <tr key={report._id} className="border-t transition hover:bg-gray-50">
-                    <td className="px-6 py-5 font-bold text-[#1E7A5A]">
+                    <td className="px-6 py-5 font-bold text-[#50A0B8]">
                       {report.reportType}
                     </td>
                     <td className="px-6 py-5 text-gray-700">{report.programName}</td>

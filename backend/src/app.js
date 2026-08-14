@@ -25,7 +25,7 @@ app.use(compression());
 
 app.use(
   cors({
-    origin: "https://app.wathq.org",
+    origin: "http://localhost:5173",
     credentials: true,
   })
 );
