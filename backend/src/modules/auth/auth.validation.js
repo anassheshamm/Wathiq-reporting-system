@@ -43,6 +43,11 @@ export const registerValidation = [
     .notEmpty()
     .withMessage("Phone is required."),
 
+  body("jobTitle")
+  .notEmpty()
+  .withMessage("Job title is required")
+  .trim(),
+
   body("gender")
     .isIn(["male", "female"])
     .withMessage("Invalid gender."),

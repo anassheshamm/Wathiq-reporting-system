@@ -7,6 +7,12 @@ import authorize from "../../middlewares/authorize.middleware.js";
 
 const router = Router();
 
+router.get(
+  "/profile",
+  protect,
+  userController.getProfile
+);
+
 router.post(
   "/",
   protect,

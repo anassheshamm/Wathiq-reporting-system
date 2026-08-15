@@ -53,6 +53,7 @@ const userData = {
 
   nationalId: data.nationalId,
   phone: data.phone,
+  jobTitle: data.jobTitle,
   gender: data.gender,
 
   password: data.password,

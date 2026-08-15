@@ -34,6 +34,16 @@ class UserService {
     return await User.findById(id);
   }
 
+  async getProfile(userId) {
+  const user = await User.findById(userId).select("-password");
+
+  if (!user) {
+    throw new AppError("User not found.", 404);
+  }
+
+  return user;
+}
+
   async getTeamLeaders() {
     return await User.find({
       role: "teamLeader",
