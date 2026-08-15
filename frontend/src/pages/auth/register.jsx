@@ -7,12 +7,13 @@ import {
   Lock,
   CreditCard,
   Users,
+  Globe,
+  Briefcase,
 } from "lucide-react";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-
 
 import Logo from "../../components/auth/Logo";
 import SectionHeader from "../../components/auth/SectionHeader";
@@ -29,10 +30,12 @@ const schema = z
     firstName: z.string().min(2, "الاسم الأول مطلوب"),
     middleName: z.string().min(2, "الاسم الأوسط مطلوب"),
     lastName: z.string().min(2, "اسم العائلة مطلوب"),
-    nationalId: z.string().length(10, "رقم الهوية يجب أن يكون 10  رقماً"),
+    nationalId: z.string().length(10, "رقم الهوية يجب أن يكون 10 رقماً"),
     phone: z.string().min(11, "رقم الهاتف غير صحيح"),
     email: z.string().email("بريد إلكتروني غير صحيح"),
     gender: z.enum(["male", "female"], { errorMap: () => ({ message: "اختر الجنس" }) }),
+    nationality: z.string().min(2, "الجنسية مطلوبة"),
+    jobTitle: z.string().min(2, "المسمى الوظيفي مطلوب"),
     password: z.string().min(8, "٨ أحرف على الأقل"),
     confirmPassword: z.string(),
   })
@@ -76,8 +79,10 @@ export default function Register() {
         lastName: data.lastName,
         nationalId: data.nationalId,
         phone: data.phone,
-        email: data.email, // Kept in case backend requires confirmation
+        email: data.email,
         gender: data.gender,
+        nationality: data.nationality,
+        jobTitle: data.jobTitle,
         password: data.password,
       };
 
@@ -106,7 +111,6 @@ export default function Register() {
 
         <Logo />
       
-
         <div className="mb-14 text-center">
           <h1 className="text-5xl font-extrabold text-slate-900">
             إنشاء حساب جديد
@@ -161,15 +165,13 @@ export default function Register() {
                 {...register("lastName")}
               />
 
-              <div className="md:col-span-2">
-                <Input
-                  label="رقم الهوية"
-                  placeholder="ادخل رقم الهوية"
-                  icon={<CreditCard size={18} />}
-                  error={errors.nationalId?.message}
-                  {...register("nationalId")}
-                />
-              </div>
+              <Input
+                label="رقم الهوية"
+                placeholder="ادخل رقم الهوية"
+                icon={<CreditCard size={18} />}
+                error={errors.nationalId?.message}
+                {...register("nationalId")}
+              />
 
               <Select
                 label="الجنس"
@@ -181,6 +183,24 @@ export default function Register() {
                 error={errors.gender?.message}
                 {...register("gender")}
               />
+
+              <Input
+                label="الجنسية"
+                placeholder="ادخل الجنسية"
+                icon={<Globe size={18} />}
+                error={errors.nationality?.message}
+                {...register("nationality")}
+              />
+
+              <div className="md:col-span-3">
+                <Input
+                  label="المسمى الوظيفي"
+                  placeholder="ادخل المسمى الوظيفي"
+                  icon={<Briefcase size={18} />}
+                  error={errors.jobTitle?.message}
+                  {...register("jobTitle")}
+                />
+              </div>
 
             </div>
           </section>

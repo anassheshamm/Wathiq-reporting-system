@@ -24,6 +24,8 @@ import PendingReportsPage from "../features/TeamLeader/PendingReportsPage";
 import TeamDoctorsPage from "../features/TeamLeader/TeamDoctorsPage";
 import TeamPatientsPage from "../features/TeamLeader/TeamPatientsPage";
 
+import ProfilePage from "../pages/profilePage"; // Make sure to adjust this import path to where you saved the ProfilePage component
+
 import ProtectedRoute from "./ProtectedRoute";
 import PublicRoute from "./PublicRoute";
 
@@ -39,7 +41,6 @@ export default function AppRouter() {
         <Routes>
           
           {/* ================= Authentication ================= */}
-          {/* Properly wrapped in PublicRoute and AuthLayout is removed */}
           <Route path="/" element={<PublicRoute><LoginPage /></PublicRoute>} />
           <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>} />
           <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
@@ -60,27 +61,24 @@ export default function AppRouter() {
             <Route path="doctors" element={<DoctorsadminPage />} />
             <Route path="patients" element={<PatientsPage />} />
             <Route path="heads" element={<HeadsPage />} />
+            <Route path="profile" element={<ProfilePage />} />
+            <Route path="patient/:patientId" element={<PatientProfilePage />} />
             <Route
-    path="patient/:patientId"
-    element={<PatientProfilePage />}
-  />
+              path="pre-reports/:reportId"
+              element={
+                <ProtectedRoute roles={["admin"]}>
+                  <ReportPreviewPage />
+                </ProtectedRoute>
+              }
+            />
             <Route
-  path="/admin/pre-reports/:reportId"
-  element={
-    <ProtectedRoute roles={["admin"]}>
-      <ReportPreviewPage />
-    </ProtectedRoute>
-  }
-/>
-
-<Route
-  path="/admin/post-reports/:reportId"
-  element={
-    <ProtectedRoute roles={["admin"]}>
-      <PostReport />
-    </ProtectedRoute>
-  }
-/>
+              path="post-reports/:reportId"
+              element={
+                <ProtectedRoute roles={["admin"]}>
+                  <PostReport />
+                </ProtectedRoute>
+              }
+            />
           </Route>
 
           {/* ================= Doctor ================= */}
@@ -95,28 +93,27 @@ export default function AppRouter() {
             <Route index element={<DoctorsPage />} />
             <Route path="new" element={<CreatePatientPage />} />
             <Route path="edit-patient/:patientId" element={<CreatePatientPage />} />
+            <Route path="profile" element={<ProfilePage />} />
             <Route path="patient/:patientId" element={<PatientProfilePage />} />
             <Route path="reports/beneficiary/:patientId" element={<BeneficiaryReportPage />} />
             <Route path="reports/secondary/:patientId" element={<PostReportPage />} />
+            <Route
+              path="pre-reports/:reportId"
+              element={
+                <ProtectedRoute roles={["doctor"]}>
+                  <ReportPreviewPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="post-reports/:reportId"
+              element={
+                <ProtectedRoute roles={["doctor"]}>
+                  <PostReport />
+                </ProtectedRoute>
+              }
+            />
           </Route>
-
-          {/* Doctor Previews (WITHOUT Sidebar) */}
-          <Route
-            path="/doctor/pre-reports/:reportId"
-            element={
-              <ProtectedRoute roles={["doctor"]}>
-                <ReportPreviewPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/doctor/post-reports/:reportId"
-            element={
-              <ProtectedRoute roles={["doctor"]}>
-                <PostReport />
-              </ProtectedRoute>
-            }
-          />
 
           {/* ================= Team Leader (WITH Sidebar) ================= */}
           <Route
@@ -130,26 +127,25 @@ export default function AppRouter() {
             <Route index element={<PendingReportsPage />} />
             <Route path="doctors" element={<TeamDoctorsPage />} />
             <Route path="patients" element={<TeamPatientsPage />} />
+            <Route path="profile" element={<ProfilePage />} />
             <Route path="patient/:patientId" element={<PatientProfilePage />} />
+            <Route
+              path="pre-reports/:reportId"
+              element={
+                <ProtectedRoute roles={["teamLeader"]}>
+                  <ReportPreviewPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="post-reports/:reportId"
+              element={
+                <ProtectedRoute roles={["teamLeader"]}>
+                  <PostReport />
+                </ProtectedRoute>
+              }
+            />
           </Route>
-
-          {/* ================= Team Leader (WITHOUT Sidebar - Previews) ================= */}
-          <Route
-            path="/team-leader/pre-reports/:reportId"
-            element={
-              <ProtectedRoute roles={["teamLeader"]}>
-                <ReportPreviewPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/team-leader/post-reports/:reportId"
-            element={
-              <ProtectedRoute roles={["teamLeader"]}>
-                <PostReport />
-              </ProtectedRoute>
-            }
-          />
 
           {/* ================= CATCH-ALL ROUTE ================= */}
           {/* This MUST be the very last route in the file! */}
