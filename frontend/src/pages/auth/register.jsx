@@ -32,7 +32,7 @@ const schema = z
     lastName: z.string().min(2, "اسم العائلة مطلوب"),
     nationalId: z.string().length(10, "رقم الهوية يجب أن يكون 10 رقماً"),
     phone: z.string().min(11, "رقم الهاتف غير صحيح"),
-    email: z.string().email("بريد إلكتروني غير صحيح"),
+    // email: z.string().email("بريد إلكتروني غير صحيح"),
     gender: z.enum(["male", "female"], { errorMap: () => ({ message: "اختر الجنس" }) }),
     nationality: z.string().min(2, "الجنسية مطلوبة"),
     jobTitle: z.string().min(2, "المسمى الوظيفي مطلوب"),
@@ -79,7 +79,7 @@ export default function Register() {
         lastName: data.lastName,
         nationalId: data.nationalId,
         phone: data.phone,
-        email: data.email,
+        // email: data.email,
         gender: data.gender,
         nationality: data.nationality,
         jobTitle: data.jobTitle,
@@ -221,13 +221,13 @@ export default function Register() {
                 {...register("phone")}
               />
 
-              <Input
+              {/* <Input
                 label="البريد الإلكتروني"
                 placeholder="your.email@example.com"
                 icon={<Mail size={18} />}
                 error={errors.email?.message}
                 {...register("email")}
-              />
+              /> */}
             </div>
           </section>
 
