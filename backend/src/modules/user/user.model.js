@@ -42,6 +42,12 @@ const userSchema = new mongoose.Schema(
       trim: true,
     },
 
+    jobTitle: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
     nationalId: {
   type: String,
   required: true,

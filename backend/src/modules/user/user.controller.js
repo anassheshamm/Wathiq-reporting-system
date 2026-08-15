@@ -14,6 +14,19 @@ class UserController {
     }
   }
 
+  async getProfile(req, res, next) {
+  try {
+    const user = await userService.getProfile(req.user._id);
+
+    return res.status(200).json({
+      success: true,
+      data: user,
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
   async getTeamLeaders(req, res, next) {
     try {
       const teamLeaders = await userService.getTeamLeaders();
