@@ -146,7 +146,7 @@ const ReportPreviewPage = () => {
   const translateStatus = (status) => ({ pending: "قيد الانتظار", approved: "معتمد", rejected: "مرفوض" }[status] || status);
 
   const patientFullName = report.patient ? `${report.patient.firstName || ""} ${report.patient.middleName || ""} ${report.patient.lastName || ""}` : "غير متوفر";
-  const teamLeaderFullName = report.teamLeader ? `${report.teamLeader.firstName || ""} ${report.teamLeader.lastName || ""}` : "غير متوفر";
+  const teamLeaderFullName = report.teamLeader ? `${report.teamLeader.firstName || ""} ${report.teamLeader.middleName || ""} ${report.teamLeader.lastName || ""}` : "غير متوفر";
 
   return (
     <div dir="rtl"
@@ -326,7 +326,7 @@ const ReportPreviewPage = () => {
                 <div className="flex justify-between border-b border-gray-100 pb-3">
                   <span className="font-semibold text-gray-500">الاسم</span>
                   <span className="font-bold text-[#31778b]">
-                    {report.doctor ? `${report.doctor.firstName} ${report.doctor.lastName}` : "-"}
+                    {report.doctor ? `${report.doctor.firstName} ${report.doctor.middleName} ${report.doctor.lastName}` : "-"}
                   </span>
                 </div>
                 <div className="flex justify-between border-b border-gray-100 pb-3">
