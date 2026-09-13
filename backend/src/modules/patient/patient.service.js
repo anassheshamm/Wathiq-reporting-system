@@ -8,7 +8,6 @@ class PatientService {
   async create(data) {
     const existingPatient = await Patient.findOne({
       nationalId: data.nationalId,
-      isActive: true,
     });
 
     if (existingPatient) {
@@ -21,62 +20,96 @@ class PatientService {
   async findById(id) {
     return await Patient.findById(id).populate(
       "doctor",
-      "firstName middleName lastName email role",
+      "firstName middleName lastName email role"
     );
   }
 
-  async getAll(user, search) {
-    const query = {
-      isActive: true,
+  async getAll(user, search, page = 1, limit = 15) {
+  const query = {};
+
+  // Doctor can only see his patients
+  if (user.role === "doctor") {
+    query.doctor = user._id;
+  }
+
+  // Team Leader sees patients of doctors assigned to them
+  else if (user.role === "teamLeader") {
+    const myDoctors = await User.find({
+      teamLeader: user._id,
+    }).select("_id");
+
+    const doctorIds = myDoctors.map((doc) => doc._id);
+
+    query.doctor = {
+      $in: doctorIds,
     };
+  }
 
-    // Doctor can only see his patients
-    if (user.role === "doctor") {
-      query.doctor = user._id;
-    }
-    // Team Leader sees patients of doctors assigned to them
-    else if (user.role === "teamLeader") {
-      const myDoctors = await User.find({ teamLeader: user._id }).select("_id");
-      const doctorIds = myDoctors.map((doc) => doc._id);
-      query.doctor = { $in: doctorIds };
-    }
+  // Search by name or national ID
+  if (search) {
+    query.$or = [
+      {
+        firstName: {
+          $regex: search,
+          $options: "i",
+        },
+      },
+      {
+        middleName: {
+          $regex: search,
+          $options: "i",
+        },
+      },
+      {
+        lastName: {
+          $regex: search,
+          $options: "i",
+        },
+      },
+      {
+        nationalId: {
+          $regex: search,
+          $options: "i",
+        },
+      },
+    ];
+  }
 
-    // Search by name or national ID
-    if (search) {
-      query.$or = [
-        {
-          firstName: {
-            $regex: search,
-            $options: "i",
-          },
-        },
-        {
-          middleName: {
-            $regex: search,
-            $options: "i",
-          },
-        },
-        {
-          lastName: {
-            $regex: search,
-            $options: "i",
-          },
-        },
-        {
-          nationalId: {
-            $regex: search,
-            $options: "i",
-          },
-        },
-      ];
-    }
+  const currentPage = Number(page) || 1;
+  const pageSize = Number(limit) || 15;
+  const skip = (currentPage - 1) * pageSize;
 
-    return await Patient.find(query)
-      .populate("doctor", "firstName middleName lastName")
+  const [patients, totalPatients] = await Promise.all([
+    Patient.find(query)
+      .populate(
+        "doctor",
+        "firstName middleName lastName"
+      )
       .sort({
         createdAt: -1,
-      });
-  }
+      })
+      .skip(skip)
+      .limit(pageSize),
+
+    Patient.countDocuments(query),
+  ]);
+
+  return {
+    patients,
+    pagination: {
+      totalPatients,
+      currentPage,
+      pageSize,
+      totalPages: Math.ceil(
+        totalPatients / pageSize
+      ),
+      hasNextPage:
+        currentPage <
+        Math.ceil(totalPatients / pageSize),
+      hasPreviousPage: currentPage > 1,
+    },
+  };
+}
 
   async getById(patientId, user) {
     let patient;
@@ -85,13 +118,12 @@ class PatientService {
       patient = await Patient.findOne({
         _id: patientId,
         doctor: user._id,
-        isActive: true,
       }).populate("doctor", "firstName middleName lastName email role");
     } else {
-      patient = await Patient.findOne({
-        _id: patientId,
-        isActive: true,
-      }).populate("doctor", "firstName middleName lastName email role");
+      patient = await Patient.findById(patientId).populate(
+        "doctor",
+        "firstName middleName lastName email role"
+      );
     }
 
     if (!patient) {
@@ -130,53 +162,41 @@ class PatientService {
   }
 
   async update(patientId, data, user) {
-    const patient = await Patient.findOne({
-      _id: patientId,
-      doctor: user._id,
-    });
-
-    if (!patient) {
-      throw new AppError("Patient not found.", 404);
-    }
-
-    // منع تكرار الرقم القومي
-    if (data.nationalId && data.nationalId !== patient.nationalId) {
-      const existingPatient = await Patient.findOne({
-        nationalId: data.nationalId,
-        _id: { $ne: patientId },
-      });
-
-      if (existingPatient) {
-        throw new AppError("National ID already exists.", 409);
-      }
-    }
-
-    Object.assign(patient, data);
-
-    await patient.save();
-
-    return patient.populate(
-      "doctor",
-      "firstName middleName lastName email role",
-    );
-  }
-
-  async delete(patientId, user) {
   const patient = await Patient.findOne({
     _id: patientId,
     doctor: user._id,
-    isActive: true,
   });
 
   if (!patient) {
     throw new AppError("Patient not found.", 404);
   }
 
-  patient.isActive = false;
+  // منع تكرار الرقم القومي
+  if (
+    data.nationalId &&
+    data.nationalId !== patient.nationalId
+  ) {
+    const existingPatient = await Patient.findOne({
+      nationalId: data.nationalId,
+      _id: { $ne: patientId },
+    });
+
+    if (existingPatient) {
+      throw new AppError(
+        "National ID already exists.",
+        409
+      );
+    }
+  }
+
+  Object.assign(patient, data);
 
   await patient.save();
 
-  return patient;
+  return patient.populate(
+    "doctor",
+    "firstName middleName lastName email role"
+  );
 }
 
   async getDashboardStats(doctorId) {
@@ -197,7 +217,6 @@ class PatientService {
     ] = await Promise.all([
       Patient.countDocuments({
         doctor: doctorId,
-        isActive: true,
       }),
       PreReport.countDocuments({
         doctor: doctorId,
@@ -221,6 +240,26 @@ class PatientService {
       pendingReports: pendingPreReports + pendingPostReports, // Fixed summation
     };
   }
+  
+  async updateStatus(patientId, status, user) {
+  const patient = await Patient.findOne({
+    _id: patientId,
+    doctor: user._id,
+  });
+
+  if (!patient) {
+    throw new AppError("Patient not found.", 404);
+  }
+
+  patient.status = status;
+
+  await patient.save();
+
+  return patient.populate(
+    "doctor",
+    "firstName middleName lastName email role"
+  );
+}
 }
 
 export default new PatientService();

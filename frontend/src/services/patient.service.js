@@ -4,11 +4,17 @@ const patientService = {
   // ===========================
   // Get All Patients (With Search)
   // ===========================
-  async getAllPatients(search = "") {
-    const queryString = search ? `?search=${search}` : "";
-    const response = await api.get(`/patients${queryString}`);
-    return response.data;
-  },
+ async getAllPatients(search = "", page = 1, limit = 15) {
+  const response = await api.get("/patients", {
+    params: {
+      search,
+      page,
+      limit,
+    },
+  });
+
+  return response.data;
+},
 
   // ===========================
   // Get Patients (Used by Team Leader / Dashboard)
@@ -92,6 +98,13 @@ const patientService = {
   // ===========================
   async deletePatient(id) {
     const response = await api.delete(`/patients/${id}`);
+    return response.data;
+  },
+ // ===========================
+  // Update Patient Status
+  // ===========================
+  async updateStatus(id, status) {
+    const response = await api.patch(`/patients/${id}/status`, { status });
     return response.data;
   },
 };

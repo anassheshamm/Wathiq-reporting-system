@@ -23,6 +23,7 @@ const patientSchema = new mongoose.Schema(
     nationalId: {
       type: String,
       required: true,
+      unique: true,
     },
 
     gender: {
@@ -92,18 +93,21 @@ const patientSchema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
+
+    status: {
+      type: String,
+      enum: [
+    "active",
+    "completed",
+    "delayed",
+    "discontinued",
+  ],
+  default: "active",
+},
+
   },
   {
     timestamps: true,
-  }
-);
-patientSchema.index(
-  { nationalId: 1 },
-  {
-    unique: true,
-    partialFilterExpression: {
-      isActive: true,
-    },
   }
 );
 

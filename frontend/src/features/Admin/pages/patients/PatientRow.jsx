@@ -13,6 +13,22 @@ const PatientRow = ({ patient }) => {
         .filter(Boolean)
         .join(" ")
     : "غير محدد";
+    const renderStatus = (status) => {
+    const statusConfig = {
+      active: { text: "نشط", className: "bg-green-100 text-green-700" },
+      completed: { text: "مكتمل", className: "bg-blue-100 text-blue-700" },
+      delayed: { text: "مؤجل", className: "bg-yellow-100 text-yellow-700" },
+      discontinued: { text: "منقطع", className: "bg-red-100 text-red-700" },
+    };
+
+    const current = statusConfig[status] || statusConfig.active;
+
+    return (
+      <span className={`inline-block rounded-full px-3 py-1 text-sm font-semibold ${current.className}`}>
+        {current.text}
+      </span>
+    );
+  };
 
   return (
     <tr className="overflow-hidden rounded-2xl bg-white shadow-sm transition hover:bg-[#FAFCFB]">
@@ -36,6 +52,9 @@ const PatientRow = ({ patient }) => {
 
       <td className="px-6 py-5 text-right font-medium text-[#2F2F2F]">
         {doctorName}
+      </td>
+      <td className="px-6 py-5 text-right">
+        {renderStatus(patient.status)}
       </td>
 
       <td className="rounded-l-2xl px-6 py-5">

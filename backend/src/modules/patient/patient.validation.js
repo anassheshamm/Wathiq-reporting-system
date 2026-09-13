@@ -123,3 +123,15 @@ export const updatePatientValidation = [
   body("address")
     .optional(),
 ];
+
+export const updatePatientStatusValidation = [
+    body("status")
+    .isIn([
+      "active",
+      "completed",
+      "delayed",
+      "discontinued",
+    ])
+    .withMessage("Invalid patient status"),
+
+];
