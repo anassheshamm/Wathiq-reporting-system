@@ -10,7 +10,6 @@ const userService = {
   createUser(data) {
     return api.post("/users", data);
   },
-  // ==== ADDED PROFILE METHODS ====
   getProfile() {
     return api.get("/users/profile");
   },

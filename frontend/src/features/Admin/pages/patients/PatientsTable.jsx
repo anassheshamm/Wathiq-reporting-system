@@ -22,6 +22,9 @@ const PatientsTable = ({ patients = [] }) => {
             <th className="px-6 py-5 text-right font-semibold">
               المعالج المشرف
             </th>
+            <th className="px-6 py-5 text-right font-semibold">
+              الحالة
+            </th>
             <th className="rounded-l-2xl px-6 py-5 text-center font-semibold">
             رؤية ملف المستفيد
             </th>

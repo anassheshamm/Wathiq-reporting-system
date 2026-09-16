@@ -199,22 +199,18 @@ const basePath = location.pathname.startsWith("/admin")
           </div>
 
           <div className="flex gap-4">
-
-            <button
-              onClick={() =>
-                navigate(
-                  `/doctor/edit-patient/${patient._id}`
-                )
-              }
-              className="flex items-center gap-2 rounded-xl bg-[#4FA0B7] px-7 py-4 font-semibold text-white transition hover:bg-[#4FA0B7]/60"
-            >
-              <Pencil size={18} />
-              تعديل المعلومات
-            </button>
-
-            
-
-          </div>
+  {user?.role === "doctor" && (
+    <button
+      onClick={() =>
+        navigate(`/doctor/edit-patient/${patient._id}`)
+      }
+      className="flex items-center gap-2 rounded-xl bg-[#4FA0B7] px-7 py-4 font-semibold text-white transition hover:bg-[#4FA0B7]/60"
+    >
+      <Pencil size={18} />
+      تعديل المعلومات
+    </button>
+  )}
+</div>
 
         </div>
 

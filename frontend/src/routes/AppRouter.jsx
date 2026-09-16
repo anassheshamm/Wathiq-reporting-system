@@ -23,6 +23,7 @@ import TeamLeaderLayout from "../features/TeamLeader/TeamLeaderLayout";
 import PendingReportsPage from "../features/TeamLeader/PendingReportsPage";
 import TeamDoctorsPage from "../features/TeamLeader/TeamDoctorsPage";
 import TeamPatientsPage from "../features/TeamLeader/TeamPatientsPage";
+import DashboardPage from "../features/Admin/pages/Dashboard/Dashboard";
 
 import ProfilePage from "../pages/profilePage"; // Make sure to adjust this import path to where you saved the ProfilePage component
 
@@ -45,7 +46,7 @@ export default function AppRouter() {
           <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>} />
           <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
           <Route path="/forgot-password" element={<PublicRoute><ForgotPasswordPage /></PublicRoute>} />
-          <Route path="/reset-password/:token" element={<PublicRoute><ResetPasswordPage /></PublicRoute>} />
+          <Route path="/reset-password" element={<PublicRoute><ResetPasswordPage /></PublicRoute>} />
 
           {/* ================= Admin ================= */}
           <Route
@@ -80,6 +81,14 @@ export default function AppRouter() {
               }
             />
           </Route>
+          <Route
+  path="/admin/analytics"
+  element={
+    <ProtectedRoute roles={["admin"]}>
+      <DashboardPage />
+    </ProtectedRoute>
+  }
+/>
 
           {/* ================= Doctor ================= */}
           <Route
