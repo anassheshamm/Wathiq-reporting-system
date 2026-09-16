@@ -5,29 +5,30 @@ import { Mail } from "lucide-react";
 import logo from "/logo.png";
 import logo2 from "/logo2.png";
 
+import authService from "../../services/auth.service";
+
 const ForgotPasswordPage = () => {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    if (!email) return;
+  if (!email) return;
 
-    try {
-      setLoading(true);
+  try {
+    setLoading(true);
 
-      // TODO:
-      // await forgotPassword(email);
+    await authService.forgotPassword(email);
 
-      setSent(true);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  };
+    setSent(true);
+  } catch (error) {
+    console.error(error);
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <main

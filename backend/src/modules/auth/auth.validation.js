@@ -55,4 +55,24 @@ export const registerValidation = [
   body("password")
     .isLength({ min: 8 })
     .withMessage("Password must be at least 8 characters."),
+
+];
+
+export const forgotPasswordValidation = [
+  body("email")
+    .notEmpty()
+    .withMessage("Email is required")
+    .isEmail()
+    .withMessage("Invalid email address")
+    .normalizeEmail(),
+];
+
+export const resetPasswordValidation = [
+  body("token")
+    .notEmpty()
+    .withMessage("Reset token is required."),
+
+  body("password")
+    .isLength({ min: 8 })
+    .withMessage("Password must be at least 8 characters."),
 ];

@@ -25,7 +25,11 @@ app.use(compression());
 
 app.use(
   cors({
-    origin: "https://wathiq-reporting-system-f9kh.vercel.app",
+    origin: [
+      "https://wathiq-reporting-system-f9kh.vercel.app",
+      "http://localhost:5173",
+      "http://localhost:5174",
+    ],
     credentials: true,
   })
 );

@@ -1,12 +1,19 @@
 import { useState } from "react";
 import { Eye, EyeOff, Lock } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import {
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
+
+import authService from "../../services/auth.service";
 
 import logo from "/logo.png";
 
 const ResetPasswordPage = () => {
   const navigate = useNavigate();
-
+  const [searchParams] = useSearchParams();
+  const token = searchParams.get("token");
+  
   const [showPassword, setShowPassword] = useState(false);
 
   const [form, setForm] = useState({
@@ -23,26 +30,38 @@ const ResetPasswordPage = () => {
     });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    if (form.password !== form.confirmPassword) {
-      alert("كلمتا المرور غير متطابقتين");
-      return;
-    }
+  if (!token) {
+    alert("رابط إعادة تعيين كلمة المرور غير صالح.");
+    return;
+  }
 
-    try {
-      setLoading(true);
+  if (form.password !== form.confirmPassword) {
+    alert("كلمتا المرور غير متطابقتين");
+    return;
+  }
 
-      // TODO:
-      // await resetPassword(token, form.password);
+  try {
+    setLoading(true);
 
-      navigate("/login");
+    await authService.resetPassword(
+      token,
+      form.password
+    );
 
-    } finally {
-      setLoading(false);
-    }
-  };
+    navigate("/login");
+  } catch (error) {
+    alert(
+      error.response?.data?.message ||
+        "حدث خطأ أثناء إعادة تعيين كلمة المرور."
+    );
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <main
