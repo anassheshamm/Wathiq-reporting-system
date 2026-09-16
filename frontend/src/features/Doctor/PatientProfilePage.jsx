@@ -569,8 +569,8 @@ const basePath = location.pathname.startsWith("/admin")
                       </td>
                       <td className="px-8 py-6">
                         {report.teamLeader
-                          ? `${report.teamLeader.firstName} ${report.teamLeader.lastName}`
-                          : "-"}
+                        ? `${report.teamLeader.firstName} ${report.teamLeader.middleName} ${report.teamLeader.lastName}`
+                        : "-"}
                       </td>
                       <td className="px-8 py-6">
                         <span
